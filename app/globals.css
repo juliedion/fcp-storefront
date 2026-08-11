@@ -442,3 +442,122 @@ h1,h2,h3,h4,h5,h6,.hero__title,.sectionHead h2,.collectionTitle{font-family:var(
   .heroSky .hero__cloud,.heroSky .hero__plane,.heroSky .hero__sun,.heroSky .hero__airTrail path{animation:none!important}
   .heroSky .hero__plane{display:none!important}
 }
+
+
+/* ===== V3.1 HARD SKY RESET — fixes legacy giant plane/cloud rules ===== */
+.heroSky{
+  position:absolute!important;
+  inset:0!important;
+  overflow:hidden!important;
+  pointer-events:none!important;
+  z-index:1!important;
+}
+
+/* Clouds: intentionally small background accents */
+.heroSky .hero__cloud{
+  position:absolute!important;
+  display:block!important;
+  width:104px!important;
+  max-width:104px!important;
+  height:auto!important;
+  margin:0!important;
+  opacity:.72!important;
+  transform:none!important;
+  filter:none!important;
+}
+.heroSky .hero__cloud--one{left:48%!important;top:14%!important;width:110px!important;animation:fc-v31-cloud1 24s ease-in-out infinite alternate!important}
+.heroSky .hero__cloud--two{left:auto!important;right:3%!important;top:31%!important;width:92px!important;animation:fc-v31-cloud2 29s ease-in-out infinite alternate!important}
+.heroSky .hero__cloud--three{left:auto!important;right:29%!important;top:7%!important;width:72px!important;opacity:.52!important;animation:fc-v31-cloud3 32s ease-in-out infinite alternate!important}
+
+/* Sun */
+.heroSky .hero__sun{
+  position:absolute!important;
+  width:58px!important;
+  height:58px!important;
+  max-width:58px!important;
+  right:8%!important;
+  top:11%!important;
+  border-radius:50%!important;
+  opacity:.88!important;
+  z-index:0!important;
+}
+
+/* Plane wrapper: hard dimensions override all previous width/height/min-width rules */
+.heroSky .hero__plane{
+  position:absolute!important;
+  box-sizing:border-box!important;
+  width:82px!important;
+  min-width:0!important;
+  max-width:82px!important;
+  height:42px!important;
+  min-height:0!important;
+  max-height:42px!important;
+  left:-100px!important;
+  top:38%!important;
+  margin:0!important;
+  padding:0!important;
+  transform-origin:center!important;
+  overflow:visible!important;
+  z-index:2!important;
+  animation:fc-v31-plane 16s linear infinite!important;
+}
+.heroSky .hero__plane > svg,
+.heroSky .hero__plane > img,
+.heroSky .hero__planeArt{
+  display:block!important;
+  position:relative!important;
+  inset:auto!important;
+  width:82px!important;
+  min-width:0!important;
+  max-width:82px!important;
+  height:42px!important;
+  min-height:0!important;
+  max-height:42px!important;
+  object-fit:contain!important;
+  transform:none!important;
+}
+
+/* Airstream is compact and travels with the plane */
+.heroSky .hero__airTrail{
+  position:absolute!important;
+  width:120px!important;
+  max-width:120px!important;
+  height:34px!important;
+  right:62px!important;
+  left:auto!important;
+  top:10px!important;
+  overflow:visible!important;
+  opacity:.56!important;
+  transform:none!important;
+}
+.heroSky .hero__airTrail path{
+  fill:none!important;
+  stroke:#fff!important;
+  stroke-width:3!important;
+  stroke-linecap:round!important;
+}
+
+@keyframes fc-v31-plane{
+  0%{left:-100px;top:40%;transform:rotate(-5deg);opacity:0}
+  8%{opacity:.92}
+  50%{top:27%;transform:rotate(-8deg);opacity:.92}
+  92%{opacity:.92}
+  100%{left:calc(100% + 100px);top:14%;transform:rotate(-10deg);opacity:0}
+}
+@keyframes fc-v31-cloud1{from{translate:-8px 0}to{translate:18px 2px}}
+@keyframes fc-v31-cloud2{from{translate:10px 0}to{translate:-16px -2px}}
+@keyframes fc-v31-cloud3{from{translate:-5px 0}to{translate:12px 1px}}
+
+@media(max-width:900px){
+  .heroSky .hero__cloud--one{left:7%!important;top:47%!important;width:76px!important}
+  .heroSky .hero__cloud--two{right:3%!important;top:54%!important;width:68px!important}
+  .heroSky .hero__cloud--three{display:none!important}
+  .heroSky .hero__sun{width:44px!important;height:44px!important;right:8%!important;top:48%!important}
+  .heroSky .hero__plane,
+  .heroSky .hero__plane > svg,
+  .heroSky .hero__plane > img,
+  .heroSky .hero__planeArt{
+    width:62px!important;max-width:62px!important;height:32px!important;max-height:32px!important
+  }
+  .heroSky .hero__airTrail{width:90px!important;max-width:90px!important;height:28px!important;right:48px!important;top:7px!important}
+}
