@@ -12,7 +12,8 @@ export default function Home() {
             <div className="hero__skyMotion">
               <img className="hero__cloudRef hero__cloudRef--left" src="/cloud-ref-left.png" alt="" />
               <img className="hero__cloudRef hero__cloudRef--mid" src="/cloud-ref-mid.png" alt="" />
-              <img className="hero__sunCloudRef" src="/sun-cloud-ref-right.png" alt="" />
+              <span className="hero__sun" aria-hidden="true"></span>
+              <img className="hero__cloudRef hero__cloudRef--sunCloud" src="/cloud-ref-right-low.png" alt="" />
               <img className="hero__cloudRef hero__cloudRef--rightLow" src="/cloud-ref-right-low.png" alt="" />
               <span className="hero__plane" aria-hidden="true">
                 <svg className="hero__airTrail" viewBox="0 0 420 120" preserveAspectRatio="none">
@@ -22,7 +23,6 @@ export default function Home() {
                 <img className="hero__planeArt" src="/fcp-plane-realistic.svg" alt="" />
               </span>
             </div>
-            <div className="hero__grassFill" aria-hidden="true"><img src="/fort-grass-left.png" alt="" /></div>
             <div className="hero__art">
               <picture>
                 <source media="(max-width: 900px)" srcSet="/fort-hero-bg-m.png" />

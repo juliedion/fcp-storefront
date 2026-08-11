@@ -190,195 +190,30 @@ h1,h2,h3,h4,h5,h6,.hero__title,.sectionHead h2,.collectionTitle{font-family:var(
 .footerLogo img{display:block;width:100%;height:auto;object-fit:contain}
 @media(max-width:620px){.footerLogo{width:160px}}
 
-/* ===== V3.2 — CLEAN SKY SYSTEM (correct live wrapper: .hero__skyMotion) ===== */
+/* ===== V3.5 FINAL HERO COMPOSITION ===== */
 .hero.hero--fort{
-  background:linear-gradient(108deg,#c6eeff 0%,#9ee3fb 42%,#59c6ef 100%);
-}
-.hero__scene::before{
-  background:linear-gradient(90deg,rgba(198,238,255,.92) 0%,rgba(198,238,255,.62) 31%,rgba(198,238,255,.14) 51%,rgba(198,238,255,0) 70%);
-  z-index:1;
-}
-.hero__skyMotion{
-  position:absolute;
-  inset:0;
-  z-index:2;
+  position:relative;
+  height:clamp(430px,34.3vw,700px);
+  min-height:430px;
   overflow:hidden;
-  pointer-events:none;
-}
-.hero__art{z-index:3}
-
-/* Sun: small, soft, background-only */
-.hero__skyMotion .hero__sun{
-  position:absolute;
-  width:62px;
-  height:62px;
-  right:8.5%;
-  top:12%;
-  border-radius:50%;
-  background:radial-gradient(circle at 36% 34%,#fffbd2 0 20%,#fff38f 50%,#ffd85c 100%);
-  box-shadow:0 0 22px rgba(255,238,123,.62),0 0 48px rgba(255,232,97,.28);
-  opacity:.88;
-  animation:fc32Sun 8s ease-in-out infinite;
-}
-
-/* Clouds: small soft accents, never giant foreground objects */
-.hero__skyMotion .hero__cloud{
-  position:absolute;
-  display:block;
-  height:auto;
-  object-fit:contain;
-  opacity:.72;
-  filter:drop-shadow(0 4px 8px rgba(56,132,170,.08));
-}
-.hero__skyMotion .hero__cloud--one{
-  width:112px;
-  left:48%;
-  top:16%;
-  animation:fc32CloudA 25s ease-in-out infinite alternate;
-}
-.hero__skyMotion .hero__cloud--two{
-  width:96px;
-  right:4%;
-  top:29%;
-  opacity:.68;
-  animation:fc32CloudB 30s ease-in-out infinite alternate-reverse;
-}
-.hero__skyMotion .hero__cloud--three{
-  width:76px;
-  right:27%;
-  top:7%;
-  opacity:.50;
-  animation:fc32CloudC 34s ease-in-out infinite alternate;
-}
-
-/* Plane: deliberately secondary to the hero art */
-.hero__skyMotion .hero__plane{
-  position:absolute;
-  left:-110px;
-  top:38%;
-  width:92px;
-  height:46px;
-  min-width:0;
-  max-width:92px;
-  min-height:0;
-  max-height:46px;
-  margin:0;
-  padding:0;
-  overflow:visible;
-  transform-origin:center;
-  z-index:2;
-  animation:fc32Plane 16s linear infinite;
-}
-.hero__skyMotion .hero__planeArt{
-  position:absolute;
-  inset:0;
-  display:block;
-  width:92px;
-  height:46px;
-  max-width:92px;
-  max-height:46px;
-  object-fit:contain;
-  filter:drop-shadow(0 4px 4px rgba(17,72,110,.18));
-}
-
-/* Short vapor trail attached to plane */
-.hero__skyMotion .hero__airTrail{
-  position:absolute;
-  right:72px;
-  left:auto;
-  top:8px;
-  width:135px;
-  height:38px;
-  overflow:visible;
-  opacity:.64;
-  transform:none;
-}
-.hero__skyMotion .hero__airTrail path{
-  fill:none;
-  stroke:rgba(255,255,255,.90);
-  stroke-width:3.2;
-  stroke-linecap:round;
-  filter:drop-shadow(0 1px 2px rgba(86,170,210,.12));
-  stroke-dasharray:430;
-  stroke-dashoffset:430;
-  animation:fc32Trail 16s linear infinite;
-}
-.hero__skyMotion .hero__airTrail path:nth-child(2){
-  stroke-width:1.6;
-  opacity:.34;
-  animation-delay:.12s;
-}
-
-@keyframes fc32Plane{
-  0%{left:-110px;top:40%;transform:rotate(-5deg) scale(.92);opacity:0}
-  7%{opacity:.95}
-  45%{top:29%;transform:rotate(-8deg) scale(1)}
-  82%{top:19%;transform:rotate(-10deg) scale(.96);opacity:.95}
-  94%{opacity:.95}
-  100%{left:calc(100% + 110px);top:12%;transform:rotate(-11deg) scale(.90);opacity:0}
-}
-@keyframes fc32Trail{
-  0%,5%{stroke-dashoffset:430;opacity:0}
-  12%{opacity:.78}
-  42%{stroke-dashoffset:115;opacity:.78}
-  72%{stroke-dashoffset:0;opacity:.58}
-  95%{opacity:.34}
-  100%{stroke-dashoffset:-110;opacity:0}
-}
-@keyframes fc32CloudA{from{transform:translateX(-8px)}to{transform:translateX(22px) translateY(2px)}}
-@keyframes fc32CloudB{from{transform:translateX(10px)}to{transform:translateX(-18px) translateY(-2px)}}
-@keyframes fc32CloudC{from{transform:translateX(-5px)}to{transform:translateX(13px) translateY(1px)}}
-@keyframes fc32Sun{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(3px) scale(1.02)}}
-
-@media(max-width:900px){
-  .hero__skyMotion .hero__sun{width:46px;height:46px;right:7%;top:49%}
-  .hero__skyMotion .hero__cloud--one{width:78px;left:5%;top:48%}
-  .hero__skyMotion .hero__cloud--two{width:68px;right:2%;top:56%}
-  .hero__skyMotion .hero__cloud--three{display:none}
-  .hero__skyMotion .hero__plane,
-  .hero__skyMotion .hero__planeArt{
-    width:66px;
-    height:33px;
-    max-width:66px;
-    max-height:33px;
-  }
-  .hero__skyMotion .hero__plane{left:-85px;top:58%;animation-duration:13s}
-  .hero__skyMotion .hero__airTrail{right:50px;top:6px;width:94px;height:28px}
-}
-
-@media(prefers-reduced-motion:reduce){
-  .hero__skyMotion .hero__cloud,
-  .hero__skyMotion .hero__sun,
-  .hero__skyMotion .hero__airTrail path{animation:none!important}
-  .hero__skyMotion .hero__plane{display:none!important}
-}
-
-/* ===== V3.3 — match the approved original hero composition ===== */
-.hero.hero--fort{
-  min-height:clamp(390px,34.5vw,560px);
-  background:linear-gradient(108deg,#aee6fb 0%,#78d1f3 50%,#48bdec 100%);
+  background:linear-gradient(110deg,#b8eaff 0%,#7bd3f4 52%,#49bee9 100%);
 }
 .hero__scene{
   position:absolute;
   inset:0;
-  display:block;
   overflow:hidden;
 }
-.hero__scene::before{
-  display:none!important;
-}
+.hero__scene::before{display:none!important}
 
-/* The supplied Fort image already contains the grass.
-   Anchor the full artwork to the bottom at 100% hero width, matching the reference. */
+/* The supplied Fort artwork already includes the full grass strip and left-side transparency.
+   Render it across the entire hero so the grass and Fort line up exactly as designed. */
 .hero__art{
   position:absolute!important;
-  z-index:3!important;
+  inset:auto 0 0 0!important;
   width:100%!important;
   max-width:none!important;
   height:auto!important;
-  left:0!important;
-  right:0!important;
-  bottom:-1px!important;
+  z-index:3!important;
   margin:0!important;
 }
 .hero__art picture,
@@ -392,208 +227,14 @@ h1,h2,h3,h4,h5,h6,.hero__title,.sectionHead h2,.collectionTitle{font-family:var(
   object-position:center bottom!important;
 }
 
-/* Keep the blink attached to the corrected desktop artwork. */
-.hero__art .hero__blink-eye{
-  left:80.85%!important;
-  top:67.55%!important;
-  width:2.05%!important;
-}
-
-/* Sky placement matched to the approved reference. */
-.hero__skyMotion{
-  position:absolute;
-  inset:0;
-  z-index:2;
-  overflow:hidden;
-}
-.hero__skyMotion .hero__sun{
-  width:72px!important;
-  height:72px!important;
-  right:4.4%!important;
-  top:5.5%!important;
-  background:radial-gradient(circle at 36% 34%,#fffde0 0 18%,#fff59a 48%,#ffd864 100%)!important;
-  box-shadow:0 0 22px rgba(255,245,157,.78),0 0 52px rgba(255,229,93,.48)!important;
-  opacity:.95!important;
-}
-
-/* Four small, soft cloud groups positioned like the reference. */
-.hero__skyMotion .hero__cloud{
-  position:absolute!important;
-  display:block!important;
-  height:auto!important;
-  opacity:.82!important;
-  filter:none!important;
-}
-.hero__skyMotion .hero__cloud--one{
-  width:132px!important;
-  left:-1.5%!important;
-  top:3.5%!important;
-  animation:fc33Cloud1 26s ease-in-out infinite alternate!important;
-}
-.hero__skyMotion .hero__cloud--two{
-  width:112px!important;
-  left:39.5%!important;
-  top:31%!important;
-  opacity:.67!important;
-  animation:fc33Cloud2 30s ease-in-out infinite alternate-reverse!important;
-}
-.hero__skyMotion .hero__cloud--three{
-  width:142px!important;
-  right:7.5%!important;
-  top:9%!important;
-  animation:fc33Cloud3 32s ease-in-out infinite alternate!important;
-}
-.hero__skyMotion .hero__cloud--four{
-  width:94px!important;
-  right:-1.5%!important;
-  top:35%!important;
-  opacity:.70!important;
-  animation:fc33Cloud4 29s ease-in-out infinite alternate-reverse!important;
-}
-
-/* Keep the approved small plane, just align its flight path with the original reference. */
-.hero__skyMotion .hero__plane{
-  width:92px!important;
-  height:46px!important;
-  max-width:92px!important;
-  max-height:46px!important;
-  top:24%!important;
-  animation:fc33Plane 16s linear infinite!important;
-}
-.hero__skyMotion .hero__planeArt{
-  width:92px!important;
-  height:46px!important;
-  max-width:92px!important;
-  max-height:46px!important;
-}
-.hero__skyMotion .hero__airTrail{
-  width:150px!important;
-  height:46px!important;
-  right:70px!important;
-  top:7px!important;
-}
-
-/* Match copy block placement in the approved reference. */
-.hero__overlay-wrap{
-  min-height:clamp(390px,34.5vw,560px)!important;
-  display:flex!important;
-  align-items:center!important;
-  position:relative!important;
-  z-index:5!important;
-}
-.hero__copy-card{
-  width:min(390px,39vw)!important;
-  max-width:390px!important;
-  padding-top:2%!important;
-}
-.hero__eyebrow{display:none!important}
-
-@keyframes fc33Plane{
-  0%{left:-110px;top:29%;transform:rotate(-5deg) scale(.90);opacity:0}
-  7%{opacity:.96}
-  42%{top:20%;transform:rotate(-7deg) scale(1)}
-  76%{top:12%;transform:rotate(-9deg) scale(.96);opacity:.96}
-  94%{opacity:.94}
-  100%{left:calc(100% + 110px);top:4%;transform:rotate(-10deg) scale(.90);opacity:0}
-}
-@keyframes fc33Cloud1{from{transform:translateX(-5px)}to{transform:translateX(20px) translateY(1px)}}
-@keyframes fc33Cloud2{from{transform:translateX(8px)}to{transform:translateX(-14px) translateY(-2px)}}
-@keyframes fc33Cloud3{from{transform:translateX(-8px)}to{transform:translateX(14px) translateY(2px)}}
-@keyframes fc33Cloud4{from{transform:translateX(8px)}to{transform:translateX(-12px) translateY(1px)}}
-
-@media(max-width:900px){
-  .hero.hero--fort,.hero__overlay-wrap{min-height:650px!important}
-  .hero__art{
-    width:800px!important;
-    left:auto!important;
-    right:-168px!important;
-    bottom:0!important;
-  }
-  .hero__art picture,.hero__art picture img{width:800px!important}
-  .hero__skyMotion .hero__sun{width:48px!important;height:48px!important;right:6%!important;top:48%!important}
-  .hero__skyMotion .hero__cloud--one{width:84px!important;left:2%!important;top:46%!important}
-  .hero__skyMotion .hero__cloud--two{width:72px!important;left:48%!important;top:54%!important}
-  .hero__skyMotion .hero__cloud--three{width:88px!important;right:3%!important;top:50%!important}
-  .hero__skyMotion .hero__cloud--four{display:none!important}
-  .hero__copy-card{width:min(330px,88vw)!important;max-width:330px!important;padding-top:28px!important}
-}
-
-@media(prefers-reduced-motion:reduce){
-  .hero__skyMotion .hero__cloud,
-  .hero__skyMotion .hero__sun{animation:none!important}
-}
-
-/* ===== V3.4 — EXACT REFERENCE COMPOSITION =====
-   Reference: Screenshot 2026-08-11 at 6.11.04 PM
-   Fort is 76% wide and bottom-right; left grass is a separate filler.
-   Clouds/sun are cropped from the approved reference and used as web layers. */
-.hero.hero--fort{
-  position:relative!important;
-  min-height:560px!important;
-  height:560px!important;
-  overflow:hidden!important;
-  background:linear-gradient(110deg,#b9eaff 0%,#7bd2f3 50%,#4bbdea 100%)!important;
-}
-.hero__scene{
-  position:absolute!important;
-  inset:0!important;
-  overflow:hidden!important;
-}
-.hero__scene::before{display:none!important}
-
-/* Full art is NOT full-width. This was the core composition error. */
-.hero__art{
-  position:absolute!important;
-  z-index:3!important;
-  width:76%!important;
-  max-width:none!important;
-  height:auto!important;
-  left:auto!important;
-  right:0!important;
-  bottom:0!important;
-  margin:0!important;
-  overflow:visible!important;
-}
-.hero__art picture,
-.hero__art picture img,
-.hero__art > img{
-  display:block!important;
-  width:100%!important;
-  max-width:none!important;
-  height:auto!important;
-  object-fit:contain!important;
-  object-position:right bottom!important;
-}
-
-/* Fill ONLY the exposed bottom-left with real grass from the same Fort asset. */
-.hero__grassFill{
-  position:absolute!important;
-  left:0!important;
-  bottom:0!important;
-  width:27%!important;
-  height:72px!important;
-  overflow:hidden!important;
-  z-index:4!important;
-  pointer-events:none!important;
-}
-.hero__grassFill img{
-  position:absolute!important;
-  left:0!important;
-  bottom:0!important;
-  width:100%!important;
-  height:100%!important;
-  object-fit:cover!important;
-  object-position:left bottom!important;
-}
-
-/* Keep eye animation attached to the scaled image. */
+/* Blink remains tied to the exact art coordinates. */
 .hero__blink-eye{
   left:80.85%!important;
   top:67.55%!important;
   width:2.05%!important;
 }
 
-/* Reference-matched sky assets */
+/* Sky layer */
 .hero__skyMotion{
   position:absolute!important;
   inset:0!important;
@@ -601,124 +242,180 @@ h1,h2,h3,h4,h5,h6,.hero__title,.sectionHead h2,.collectionTitle{font-family:var(
   overflow:hidden!important;
   pointer-events:none!important;
 }
-.hero__cloudRef,.hero__sunCloudRef{
+
+/* Soft clouds, positioned like the approved reference */
+.hero__cloudRef{
   position:absolute!important;
   display:block!important;
   height:auto!important;
   object-fit:contain!important;
+  opacity:.92!important;
   pointer-events:none!important;
 }
 .hero__cloudRef--left{
-  width:15.5%!important;
-  left:0!important;
-  top:0!important;
-  opacity:.96!important;
-  animation:fc34CloudLeft 28s ease-in-out infinite alternate!important;
+  width:13.5%!important;
+  left:-1%!important;
+  top:1%!important;
+  animation:fc35CloudA 28s ease-in-out infinite alternate!important;
 }
 .hero__cloudRef--mid{
-  width:12%!important;
-  left:39%!important;
-  top:34%!important;
-  opacity:.90!important;
-  animation:fc34CloudMid 31s ease-in-out infinite alternate-reverse!important;
+  width:11.2%!important;
+  left:39.5%!important;
+  top:31%!important;
+  opacity:.76!important;
+  animation:fc35CloudB 30s ease-in-out infinite alternate-reverse!important;
 }
-.hero__sunCloudRef{
-  width:19.3%!important;
-  right:0!important;
-  top:0!important;
-  opacity:.98!important;
-  animation:fc34SunCloud 12s ease-in-out infinite!important;
+.hero__cloudRef--sunCloud{
+  width:11.5%!important;
+  right:2.8%!important;
+  top:7.5%!important;
+  z-index:2!important;
+  opacity:.96!important;
+  animation:fc35CloudC 31s ease-in-out infinite alternate!important;
 }
 .hero__cloudRef--rightLow{
-  width:9.8%!important;
-  right:0!important;
-  top:27%!important;
-  opacity:.88!important;
-  animation:fc34CloudRight 30s ease-in-out infinite alternate!important;
+  width:8.8%!important;
+  right:-1%!important;
+  top:33%!important;
+  opacity:.80!important;
+  animation:fc35CloudD 29s ease-in-out infinite alternate-reverse!important;
 }
 
-/* Keep the approved plane small and on the reference flight path. */
+/* Sun: smaller and farther into the upper-right, behind the cloud */
+.hero__sun{
+  position:absolute!important;
+  width:72px!important;
+  height:72px!important;
+  right:5.3%!important;
+  top:5.5%!important;
+  z-index:1!important;
+  border-radius:50%!important;
+  background:radial-gradient(circle at 38% 34%,#fffde3 0 18%,#fff49b 49%,#ffd760 100%)!important;
+  box-shadow:0 0 20px rgba(255,246,163,.74),0 0 46px rgba(255,224,76,.42)!important;
+  opacity:.96!important;
+  animation:fc35Sun 9s ease-in-out infinite!important;
+}
+
+/* Plane: always visible shortly after page load, then repeats on the approved rising path */
 .hero__plane{
   position:absolute!important;
-  width:92px!important;
-  height:46px!important;
-  max-width:92px!important;
-  max-height:46px!important;
-  left:-110px!important;
-  top:31%!important;
+  width:96px!important;
+  height:48px!important;
+  left:-120px!important;
+  top:30%!important;
   z-index:5!important;
-  animation:fc34Plane 16s linear infinite!important;
+  transform-origin:center!important;
+  animation:fc35Plane 14s linear infinite!important;
+  animation-delay:-3.5s!important;
 }
 .hero__planeArt{
-  width:92px!important;
-  height:46px!important;
-  max-width:92px!important;
-  max-height:46px!important;
+  display:block!important;
+  width:96px!important;
+  height:48px!important;
+  max-width:96px!important;
+  max-height:48px!important;
+  object-fit:contain!important;
+  filter:drop-shadow(0 4px 4px rgba(31,91,127,.18))!important;
 }
 .hero__airTrail{
-  width:150px!important;
+  position:absolute!important;
+  width:155px!important;
   height:46px!important;
-  right:70px!important;
+  right:72px!important;
+  left:auto!important;
   top:7px!important;
+  overflow:visible!important;
+  opacity:.68!important;
 }
+.hero__airTrail path{
+  fill:none!important;
+  stroke:rgba(255,255,255,.92)!important;
+  stroke-width:3.2!important;
+  stroke-linecap:round!important;
+  stroke-dasharray:430!important;
+  stroke-dashoffset:430!important;
+  animation:fc35Trail 14s linear infinite!important;
+  animation-delay:-3.5s!important;
+}
+.hero__airTrail path:nth-child(2){stroke-width:1.6!important;opacity:.34!important}
 
-/* Copy aligns like the approved reference: ~6.4% from left, vertically around center. */
+/* Copy block follows the approved reference */
 .hero__overlay-wrap{
   position:relative!important;
   z-index:6!important;
   width:100%!important;
-  max-width:none!important;
-  height:560px!important;
-  min-height:560px!important;
+  height:100%!important;
+  min-height:0!important;
   margin:0!important;
   padding:0 5% 0 6.4%!important;
   display:flex!important;
   align-items:center!important;
 }
 .hero__copy-card{
-  width:430px!important;
+  width:390px!important;
   max-width:38vw!important;
+  margin:0!important;
   padding:0!important;
-  margin-top:-4px!important;
-}
-.hero__title{
-  max-width:430px!important;
 }
 .hero__eyebrow{display:none!important}
 
-@keyframes fc34Plane{
-  0%{left:-110px;top:31%;transform:rotate(-5deg) scale(.92);opacity:0}
-  7%{opacity:.96}
-  43%{top:18%;transform:rotate(-7deg) scale(1)}
-  78%{top:9%;transform:rotate(-9deg) scale(.97);opacity:.96}
-  95%{opacity:.94}
-  100%{left:calc(100% + 110px);top:2%;transform:rotate(-10deg) scale(.92);opacity:0}
+@keyframes fc35Plane{
+  0%{left:-120px;top:31%;transform:rotate(-5deg) scale(.92);opacity:0}
+  5%{opacity:.96}
+  42%{top:20%;transform:rotate(-7deg) scale(1)}
+  76%{top:11%;transform:rotate(-9deg) scale(.97);opacity:.96}
+  94%{opacity:.94}
+  100%{left:calc(100% + 120px);top:3%;transform:rotate(-10deg) scale(.92);opacity:0}
 }
-@keyframes fc34CloudLeft{from{transform:translateX(-3px)}to{transform:translateX(10px) translateY(1px)}}
-@keyframes fc34CloudMid{from{transform:translateX(5px)}to{transform:translateX(-9px) translateY(-1px)}}
-@keyframes fc34CloudRight{from{transform:translateX(4px)}to{transform:translateX(-8px) translateY(1px)}}
-@keyframes fc34SunCloud{0%,100%{transform:translateY(0)}50%{transform:translateY(2px)}}
+@keyframes fc35Trail{
+  0%,4%{stroke-dashoffset:430;opacity:0}
+  10%{opacity:.78}
+  44%{stroke-dashoffset:110;opacity:.78}
+  73%{stroke-dashoffset:0;opacity:.55}
+  96%{opacity:.25}
+  100%{stroke-dashoffset:-100;opacity:0}
+}
+@keyframes fc35CloudA{from{transform:translateX(-4px)}to{transform:translateX(15px) translateY(1px)}}
+@keyframes fc35CloudB{from{transform:translateX(6px)}to{transform:translateX(-12px) translateY(-1px)}}
+@keyframes fc35CloudC{from{transform:translateX(-5px)}to{transform:translateX(10px) translateY(1px)}}
+@keyframes fc35CloudD{from{transform:translateX(5px)}to{transform:translateX(-9px) translateY(1px)}}
+@keyframes fc35Sun{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(2px) scale(1.015)}}
 
-@media(max-width:1100px){
-  .hero.hero--fort,.hero__overlay-wrap{height:500px!important;min-height:500px!important}
-  .hero__art{width:80%!important}
-  .hero__grassFill{width:24%!important;height:64px!important}
-  .hero__copy-card{width:390px!important;max-width:39vw!important}
+/* Medium desktop */
+@media(max-width:1200px){
+  .hero.hero--fort{height:clamp(430px,36vw,610px)}
+  .hero__copy-card{width:360px!important;max-width:39vw!important}
+  .hero__sun{width:62px!important;height:62px!important}
 }
+
+/* Mobile/tablet keeps the dedicated mobile Fort art */
 @media(max-width:900px){
-  .hero.hero--fort,.hero__overlay-wrap{height:650px!important;min-height:650px!important}
+  .hero.hero--fort{height:650px!important;min-height:650px!important}
   .hero__art{
-    width:820px!important;
-    right:-175px!important;
+    width:800px!important;
     left:auto!important;
+    right:-165px!important;
     bottom:0!important;
   }
-  .hero__grassFill{width:38%!important;height:72px!important}
-  .hero__cloudRef--left{width:24%!important;top:44%!important}
-  .hero__cloudRef--mid{width:18%!important;left:43%!important;top:54%!important}
-  .hero__sunCloudRef{width:27%!important;top:43%!important}
+  .hero__art picture,
+  .hero__art picture img,
+  .hero__art > img{width:800px!important}
+  .hero__overlay-wrap{
+    align-items:flex-start!important;
+    padding:36px 18px 0!important;
+  }
+  .hero__copy-card{width:330px!important;max-width:88vw!important}
+  .hero__cloudRef--left{width:22%!important;top:45%!important}
+  .hero__cloudRef--mid{width:18%!important;left:44%!important;top:54%!important}
+  .hero__cloudRef--sunCloud{width:22%!important;right:1%!important;top:47%!important}
   .hero__cloudRef--rightLow{display:none!important}
-  .hero__copy-card{width:330px!important;max-width:86vw!important}
-  .hero__overlay-wrap{align-items:flex-start!important;padding-top:38px!important}
+  .hero__sun{width:48px!important;height:48px!important;right:7%!important;top:48%!important}
+  .hero__plane,.hero__planeArt{width:68px!important;height:34px!important;max-width:68px!important;max-height:34px!important}
+  .hero__airTrail{width:100px!important;height:30px!important;right:52px!important;top:5px!important}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .hero__cloudRef,.hero__sun,.hero__airTrail path{animation:none!important}
+  .hero__plane{display:none!important}
 }
 
