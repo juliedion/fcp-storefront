@@ -564,3 +564,155 @@ h1,h2,h3,h4,h5,h6,.hero__title,.sectionHead h2,.collectionTitle{font-family:var(
   .hero__approvedCloud--rightTop{width:28%!important;right:-5%!important;top:45%!important}
   .hero__approvedCloud--rightLow{display:none!important}
 }
+
+/* ===== V3.8 — plane + moving clouds + clean left grass ===== */
+
+/* Clean continuous grass along the full bottom-left without white/artifact gaps. */
+.hero__leftGrass{
+  position:absolute!important;
+  left:0!important;
+  bottom:0!important;
+  width:100%!important;
+  height:15.2%!important;
+  z-index:2!important;
+  overflow:hidden!important;
+  background-image:url("/fort-grass-strip.png")!important;
+  background-repeat:repeat-x!important;
+  background-position:left bottom!important;
+  background-size:auto 100%!important;
+}
+.hero__leftGrass img{display:none!important}
+.hero__art{z-index:3!important}
+
+/* Clouds drift enough to actually be noticeable, while staying subtle. */
+.hero__approvedCloud--left{
+  animation:fc38CloudLeft 18s ease-in-out infinite alternate!important;
+}
+.hero__approvedCloud--mid{
+  animation:fc38CloudMid 21s ease-in-out infinite alternate-reverse!important;
+}
+.hero__approvedCloud--rightTop{
+  animation:fc38CloudRightTop 24s ease-in-out infinite alternate!important;
+}
+.hero__approvedCloud--rightLow{
+  animation:fc38CloudRightLow 20s ease-in-out infinite alternate-reverse!important;
+}
+@keyframes fc38CloudLeft{
+  from{transform:translate3d(-6px,0,0)}
+  to{transform:translate3d(34px,4px,0)}
+}
+@keyframes fc38CloudMid{
+  from{transform:translate3d(18px,0,0)}
+  to{transform:translate3d(-28px,-3px,0)}
+}
+@keyframes fc38CloudRightTop{
+  from{transform:translate3d(-16px,0,0)}
+  to{transform:translate3d(22px,3px,0)}
+}
+@keyframes fc38CloudRightLow{
+  from{transform:translate3d(14px,0,0)}
+  to{transform:translate3d(-22px,2px,0)}
+}
+
+/* Reliable plane animation: translate across the hero instead of animating left. */
+.hero__plane{
+  display:block!important;
+  position:absolute!important;
+  left:0!important;
+  top:0!important;
+  width:92px!important;
+  height:46px!important;
+  max-width:92px!important;
+  max-height:46px!important;
+  z-index:8!important;
+  opacity:1!important;
+  will-change:transform,opacity!important;
+  animation:fc38PlaneFlight 13s linear infinite!important;
+  animation-delay:-4.2s!important;
+  transform-origin:center!important;
+}
+.hero__planeArt{
+  display:block!important;
+  width:92px!important;
+  height:46px!important;
+  max-width:92px!important;
+  max-height:46px!important;
+  object-fit:contain!important;
+}
+.hero__airTrail{
+  display:block!important;
+  position:absolute!important;
+  width:150px!important;
+  height:44px!important;
+  right:68px!important;
+  left:auto!important;
+  top:6px!important;
+  overflow:visible!important;
+  opacity:.72!important;
+}
+.hero__airTrail path{
+  stroke-dasharray:none!important;
+  stroke-dashoffset:0!important;
+  animation:none!important;
+  stroke:rgba(255,255,255,.92)!important;
+  stroke-linecap:round!important;
+}
+@keyframes fc38PlaneFlight{
+  0%{
+    transform:translate3d(-120px,118px,0) rotate(-5deg) scale(.94);
+    opacity:.95;
+  }
+  25%{
+    transform:translate3d(24vw,82px,0) rotate(-6deg) scale(1);
+    opacity:1;
+  }
+  55%{
+    transform:translate3d(55vw,44px,0) rotate(-8deg) scale(1);
+    opacity:1;
+  }
+  82%{
+    transform:translate3d(82vw,15px,0) rotate(-9deg) scale(.97);
+    opacity:1;
+  }
+  100%{
+    transform:translate3d(calc(100vw + 120px),-12px,0) rotate(-10deg) scale(.94);
+    opacity:.95;
+  }
+}
+
+/* Never hide the plane just because reduced motion is enabled; freeze it instead. */
+@media(prefers-reduced-motion:reduce){
+  .hero__plane{
+    display:block!important;
+    animation:none!important;
+    transform:translate3d(58vw,44px,0) rotate(-8deg)!important;
+  }
+  .hero__approvedCloud{animation:none!important}
+}
+
+@media(max-width:900px){
+  .hero__leftGrass{
+    height:11.5%!important;
+    background-size:auto 100%!important;
+  }
+  .hero__plane{
+    width:68px!important;
+    height:34px!important;
+    max-width:68px!important;
+    max-height:34px!important;
+    animation-duration:11s!important;
+  }
+  .hero__planeArt{
+    width:68px!important;
+    height:34px!important;
+    max-width:68px!important;
+    max-height:34px!important;
+  }
+  .hero__airTrail{
+    width:100px!important;
+    height:30px!important;
+    right:50px!important;
+    top:4px!important;
+  }
+}
+
