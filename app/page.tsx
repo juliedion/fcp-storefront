@@ -7,32 +7,35 @@ export default function Home() {
     <>
       <Header />
       <main>
-        <section className="hero">
+        <section className="hero brandedHero">
           <div className="heroCopy">
-            <p className="kicker">CRAZY GOOD FINDS FOR REAL FAMILY LIFE</p>
-            <h1>We find the good stuff.</h1>
-            <p className="heroText">Useful. Fun. Occasionally ridiculous. Finds for kids, dogs, road trips, home—and the chaos in between.</p>
+            <p className="kicker">FUN STUFF. SMART FINDS. LESS SCROLLING.</p>
+            <h1>Crazy cool <span>finds</span> you’ll actually use.</h1>
+            <p className="heroText">Clever gadgets, home hacks, family favorites, dog stuff and gifts that make everyday life easier — and a lot more fun.</p>
             <div className="heroActions">
-              <a className="primaryBtn" href="#finds">See Today's Finds</a>
-              <a className="secondaryBtn" href="#crazy-list">Read The Crazy List</a>
+              <a className="primaryBtn hotBtn" href="#finds">See Today’s Finds →</a>
+              <a className="secondaryBtn" href="#categories">Explore Collections</a>
             </div>
+            <p className="heroNote">We hunt. We test the vibe. You skip the endless scroll.</p>
           </div>
-          <div className="heroArt">
-            <div className="heroBurst">FOUND IT.</div>
-            <div className="heroTiles">
-              <span>🚗</span><span>🐶</span><span>☀️</span><span>🎨</span>
-            </div>
-            <p>Things that make somebody in your house say, “Wait... where did you get that?”</p>
+          <div className="fortScene" aria-label="Welcome to the Fort">
+            <div className="sun"></div>
+            <div className="cloud cloudOne"></div><div className="cloud cloudTwo"></div>
+            <div className="fortRoof">WELCOME TO THE</div>
+            <div className="fortDoor"><small>THE</small><strong>FORT</strong><span>family gear that</span><b>ACTUALLY WORKS</b></div>
+            <div className="fortWing leftWing"><b>CUTE STUFF<br/>INSIDE!</b><span>🌵 ⚡</span></div>
+            <div className="fortWing rightWing"><b>PLAY<br/>LAUGH<br/>BE YOU</b><span>👾 💡</span></div>
+            <div className="grass">〰〰〰〰〰〰〰〰〰〰</div>
           </div>
         </section>
 
-        <section id="categories" className="categoryBar">
+        <section id="categories" className="collectionZone"><div className="collectionTitle">⚡ SHOP BY COLLECTION ⚡</div><div className="categoryBar">
           {categories.map((category) => <a href="#finds" key={category}>{category}</a>)}
-        </section>
+        </div></section>
 
         <section id="finds" className="section">
           <div className="sectionHead">
-            <div><p className="kicker">CURRENT OBSESSIONS</p><h2>🔥 Trending Finds</h2></div>
+            <div><p className="kicker">FRESH FROM THE FORT</p><h2>🔥 Crazy-Good Finds</h2></div>
             <a href="#all">See all finds →</a>
           </div>
           <div className="findGrid">
@@ -64,8 +67,8 @@ export default function Home() {
         </section>
 
         <section id="crazy-list" className="section crazyList">
-          <p className="kicker">THE CRAZY LIST</p>
-          <div className="sectionHead"><h2>Lists worth falling down a rabbit hole for.</h2></div>
+          <p className="kicker">FRESH OFF THE PRESS</p>
+          <div className="sectionHead"><h2>The Crazy List</h2></div>
           <div className="articleGrid">
             <article><span>01</span><p>ROAD TRIPS</p><h3>10 Road Trip Products That Might Actually Save Your Sanity</h3><a href="#">Read the list →</a></article>
             <article><span>02</span><p>DOGS</p><h3>12 Things Your Dog Definitely Doesn't Need (But Will Love)</h3><a href="#">Read the list →</a></article>
