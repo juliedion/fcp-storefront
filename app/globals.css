@@ -785,3 +785,17 @@ h1,h2,h3,h4,h5,h6,.hero__title,.sectionHead h2,.collectionTitle{font-family:var(
   .hero__approvedCloud--rightTop{animation-duration:15s!important}
 }
 
+
+
+/* ===== V4.0 — final grass artifact cleanup ===== */
+/* Use only the lower, clean grass pixels. No shelves, posts, building edges, or cream artifacts. */
+.hero__leftGrass{
+  background-image:url("/fort-grass-clean-v40.png")!important;
+  background-repeat:repeat-x!important;
+  background-position:left bottom!important;
+  background-size:auto 100%!important;
+  overflow:hidden!important;
+}
+.hero__leftGrass img{display:none!important}
+
+/* Preserve the working V3.9 sky and plane animation unchanged. */
