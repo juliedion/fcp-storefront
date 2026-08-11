@@ -7,25 +7,21 @@ export default function Home() {
     <>
       <Header />
       <main>
-        <section className="hero brandedHero">
-          <div className="heroCopy">
-            <p className="kicker">FUN STUFF. SMART FINDS. LESS SCROLLING.</p>
-            <h1>Crazy cool <span>finds</span> you’ll actually use.</h1>
-            <p className="heroText">Clever gadgets, home hacks, family favorites, dog stuff and gifts that make everyday life easier — and a lot more fun.</p>
-            <div className="heroActions">
-              <a className="primaryBtn hotBtn" href="#finds">See Today’s Finds →</a>
-              <a className="secondaryBtn" href="#categories">Explore Collections</a>
-            </div>
-            <p className="heroNote">We hunt. We test the vibe. You skip the endless scroll.</p>
+        <section className="hero hero--fort">
+          <div className="hero__scene" aria-hidden="true">
+            <img src="/fort-hero-bg.png" alt="" width="1800" height="650" />
+            <span className="hero__blink-eye" aria-hidden="true"></span>
           </div>
-          <div className="fortScene" aria-label="Welcome to the Fort">
-            <div className="sun"></div>
-            <div className="cloud cloudOne"></div><div className="cloud cloudTwo"></div>
-            <div className="fortRoof">WELCOME TO THE</div>
-            <div className="fortDoor"><small>THE</small><strong>FORT</strong><span>family gear that</span><b>ACTUALLY WORKS</b></div>
-            <div className="fortWing leftWing"><b>CUTE STUFF<br/>INSIDE!</b><span>🌵 ⚡</span></div>
-            <div className="fortWing rightWing"><b>PLAY<br/>LAUGH<br/>BE YOU</b><span>👾 💡</span></div>
-            <div className="grass">〰〰〰〰〰〰〰〰〰〰</div>
+          <div className="page-width hero__overlay-wrap">
+            <div className="hero__copy-card">
+              <p className="hero__eyebrow">Cute stuff inside</p>
+              <h1 className="hero__title">Crazy Cool <span className="text-pink">Finds</span> You’ll Actually <span className="text-teal">Use</span></h1>
+              <p className="hero__subtitle">Clever gadgets, home hacks, family favorites, and gifts that make everyday life easier — and a lot more fun.</p>
+              <div className="hero__actions">
+                <a href="#finds" className="btn btn--primary">See Today’s Finds →</a>
+                <a href="#categories" className="btn btn--outline hero__outline">New Finds</a>
+              </div>
+            </div>
           </div>
         </section>
 
