@@ -11,28 +11,15 @@ export default function Home() {
           <div className="hero__scene" aria-hidden="true">
             <div className="hero__skyMotion">
               <span className="hero__sun" />
-              <span className="hero__cloud hero__cloud--one" />
-              <span className="hero__cloud hero__cloud--two" />
-              <span className="hero__cloud hero__cloud--three" />
+              <img className="hero__cloud hero__cloud--one" src="/fcp-cloud-soft.svg" alt="" />
+              <img className="hero__cloud hero__cloud--two" src="/fcp-cloud-soft.svg" alt="" />
+              <img className="hero__cloud hero__cloud--three" src="/fcp-cloud-soft.svg" alt="" />
               <span className="hero__plane" aria-hidden="true">
-                <svg className="hero__airTrail" viewBox="0 0 330 100" preserveAspectRatio="none">
-                  <path d="M320 52 C250 50 230 80 175 72 C125 65 118 32 72 41 C42 47 28 70 4 67" />
-                  <path d="M318 58 C252 58 226 88 170 80 C118 73 109 41 66 49" />
+                <svg className="hero__airTrail" viewBox="0 0 420 120" preserveAspectRatio="none">
+                  <path d="M410 68 C335 66 309 96 247 86 C190 77 182 40 128 49 C91 55 76 84 42 79 C25 77 16 69 5 64" />
+                  <path d="M408 75 C337 74 307 104 242 94 C180 84 170 52 121 58" />
                 </svg>
-                <svg className="hero__planeArt" viewBox="0 0 180 92">
-                  <g stroke="#164b78" strokeWidth="4" strokeLinejoin="round" strokeLinecap="round">
-                    <path d="M24 48 C55 44 83 38 116 31 C139 26 158 27 170 35 C174 38 174 43 170 46 C156 57 133 61 108 59 L70 57 L35 65 Z" fill="#fffaf0"/>
-                    <path d="M76 40 L103 10 C106 7 111 7 115 10 L129 25 L112 35 Z" fill="#ff4b77"/>
-                    <path d="M83 58 L117 82 C121 85 127 84 130 80 L138 62 L110 56 Z" fill="#ff4b77"/>
-                    <path d="M36 46 L18 26 L10 31 L23 50 Z" fill="#ff4b77"/>
-                    <path d="M35 61 L19 75 L12 69 L25 56 Z" fill="#ff4b77"/>
-                    <path d="M158 32 C166 33 173 37 176 41 C171 46 164 49 157 51 Z" fill="#ff9f3c"/>
-                  </g>
-                  <g fill="#64d8f3" stroke="#164b78" strokeWidth="2.5">
-                    <circle cx="118" cy="39" r="5"/><circle cx="135" cy="37" r="5"/><circle cx="151" cy="38" r="5"/>
-                  </g>
-                  <circle cx="102" cy="48" r="3.5" fill="#ffdd46"/>
-                </svg>
+                <img className="hero__planeArt" src="/fcp-plane-realistic.svg" alt="" />
               </span>
             </div>
             <div className="hero__art">
