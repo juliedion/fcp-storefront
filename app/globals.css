@@ -185,7 +185,12 @@ h1,h2,h3,h4,h5,h6,.hero__title,.sectionHead h2,.collectionTitle{font-family:var(
 }
 
 
-/* ===== V2.6 — full Shopify-style sky motion restored ===== */
+/* V2.7 — footer uses the exact same logo asset as the header */
+.footerLogo{display:block;width:190px;max-width:48vw;margin-bottom:18px}
+.footerLogo img{display:block;width:100%;height:auto;object-fit:contain}
+@media(max-width:620px){.footerLogo{width:160px}}
+
+/* ===== V3.2 — CLEAN SKY SYSTEM (correct live wrapper: .hero__skyMotion) ===== */
 .hero.hero--fort{
   background:linear-gradient(108deg,#c6eeff 0%,#9ee3fb 42%,#59c6ef 100%);
 }
@@ -193,371 +198,158 @@ h1,h2,h3,h4,h5,h6,.hero__title,.sectionHead h2,.collectionTitle{font-family:var(
   background:linear-gradient(90deg,rgba(198,238,255,.92) 0%,rgba(198,238,255,.62) 31%,rgba(198,238,255,.14) 51%,rgba(198,238,255,0) 70%);
   z-index:1;
 }
-.hero__skyMotion{position:absolute;inset:0;z-index:2;overflow:hidden;pointer-events:none}
+.hero__skyMotion{
+  position:absolute;
+  inset:0;
+  z-index:2;
+  overflow:hidden;
+  pointer-events:none;
+}
 .hero__art{z-index:3}
-.hero__sun{
-  position:absolute;right:9%;top:13%;width:92px;aspect-ratio:1;border-radius:50%;
-  background:#fff38f;box-shadow:0 0 36px rgba(255,243,143,.75);
-  animation:fc-sun-pulse 7s ease-in-out infinite;
-}
-.hero__cloud{
-  position:absolute;width:142px;height:46px;border-radius:999px;background:#f7fcff;
-  filter:drop-shadow(0 6px 6px rgba(28,115,159,.08));opacity:.95;
-}
-.hero__cloud:before,.hero__cloud:after{content:"";position:absolute;background:inherit;border-radius:50%;bottom:0}
-.hero__cloud:before{width:72px;height:72px;left:22px}.hero__cloud:after{width:88px;height:88px;right:10px}
-.hero__cloud--one{top:17%;left:51%;transform:scale(.72);animation:fc-cloud-drift-a 20s ease-in-out infinite alternate}
-.hero__cloud--two{top:27%;right:7%;transform:scale(.9);animation:fc-cloud-drift-b 24s ease-in-out infinite alternate-reverse}
-.hero__cloud--three{top:8%;right:-4%;transform:scale(1.12);animation:fc-cloud-drift-c 28s ease-in-out infinite alternate}
-.hero__plane{
-  position:absolute;right:-9%;top:8%;width:92px;height:auto;
-  transform:rotate(-8deg);filter:drop-shadow(0 4px 3px rgba(3,49,80,.18));
-  animation:fc-plane-fly 16s linear infinite;
-}
-.hero__plane svg{display:block;width:100%;height:auto}
-@keyframes fc-cloud-drift-a{from{translate:-18px 0}to{translate:35px 5px}}
-@keyframes fc-cloud-drift-b{from{translate:-28px 0}to{translate:34px -4px}}
-@keyframes fc-cloud-drift-c{from{translate:-14px 0}to{translate:-62px 6px}}
-@keyframes fc-plane-fly{
-  0%{right:-10%;top:8%;transform:rotate(-8deg) scale(.9);opacity:0}
-  7%{opacity:1}
-  48%{top:14%;transform:rotate(-12deg) scale(1)}
-  90%{opacity:1}
-  100%{right:43%;top:5%;transform:rotate(-15deg) scale(.88);opacity:0}
-}
-@keyframes fc-sun-pulse{0%,100%{transform:scale(1);opacity:.92}50%{transform:scale(1.04);opacity:1}}
-@media(max-width:900px){
-  .hero__sun{right:5%;top:48%;width:72px}
-  .hero__cloud--one{top:48%;left:5%;transform:scale(.55)}
-  .hero__cloud--two{top:56%;right:2%;transform:scale(.64)}
-  .hero__cloud--three{display:none}
-  .hero__plane{top:46%;width:72px;animation-duration:14s}
-  @keyframes fc-plane-fly{
-    0%{right:-18%;top:46%;transform:rotate(-8deg) scale(.75);opacity:0}
-    8%{opacity:1}
-    88%{opacity:1}
-    100%{right:74%;top:41%;transform:rotate(-14deg) scale(.68);opacity:0}
-  }
-}
-@media(prefers-reduced-motion:reduce){
-  .hero__cloud,.hero__plane,.hero__sun{animation:none!important}
-  .hero__plane{display:none}
-}
 
-/* V2.7 — footer uses the exact same logo asset as the header */
-.footerLogo{display:block;width:190px;max-width:48vw;margin-bottom:18px}
-.footerLogo img{display:block;width:100%;height:auto;object-fit:contain}
-@media(max-width:620px){.footerLogo{width:160px}}
-
-/* ===== V2.8 — cheerful cartoon sky + climbing plane with airstream ===== */
-.hero__skyMotion{z-index:2}
-.hero__sun{
-  right:7%;top:12%;width:106px;
-  background:radial-gradient(circle at 38% 35%,#fffbd0 0 18%,#fff38f 45%,#ffd85c 100%);
-  box-shadow:0 0 28px rgba(255,235,117,.9),0 0 70px rgba(255,232,97,.45);
-  animation:fc-sun-bob 8s ease-in-out infinite;
-}
-.hero__cloud{
-  background:linear-gradient(#fff,#f2fbff);
-  filter:drop-shadow(0 8px 10px rgba(34,121,165,.10));
-  opacity:.98;
-}
-.hero__cloud--one{top:15%;left:3%;transform:scale(.74);animation:fc-cloud-float-left 24s ease-in-out infinite alternate}
-.hero__cloud--two{top:23%;right:11%;transform:scale(.88);animation:fc-cloud-float-right 28s ease-in-out infinite alternate-reverse}
-.hero__cloud--three{top:9%;right:-3%;transform:scale(1.16);animation:fc-cloud-float-far 32s ease-in-out infinite alternate}
-.hero__plane{
+/* Sun: small, soft, background-only */
+.hero__skyMotion .hero__sun{
   position:absolute;
-  left:-19%;right:auto;top:39%;
-  width:132px;height:68px;
-  transform-origin:50% 50%;
-  filter:drop-shadow(0 7px 5px rgba(3,49,80,.20));
-  animation:fc-plane-climb 14s linear infinite;
-  will-change:left,top,transform,opacity;
+  width:62px;
+  height:62px;
+  right:8.5%;
+  top:12%;
+  border-radius:50%;
+  background:radial-gradient(circle at 36% 34%,#fffbd2 0 20%,#fff38f 50%,#ffd85c 100%);
+  box-shadow:0 0 22px rgba(255,238,123,.62),0 0 48px rgba(255,232,97,.28);
+  opacity:.88;
+  animation:fc32Sun 8s ease-in-out infinite;
 }
-.hero__planeArt{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:2;overflow:visible}
-.hero__airTrail{
+
+/* Clouds: small soft accents, never giant foreground objects */
+.hero__skyMotion .hero__cloud{
   position:absolute;
-  right:76%;top:22%;
-  width:310px;height:88px;
-  z-index:1;overflow:visible;
-  transform:rotate(3deg);
+  display:block;
+  height:auto;
+  object-fit:contain;
+  opacity:.72;
+  filter:drop-shadow(0 4px 8px rgba(56,132,170,.08));
 }
-.hero__airTrail path{
-  fill:none;stroke:rgba(255,255,255,.92);stroke-width:5;stroke-linecap:round;
-  filter:drop-shadow(0 1px 2px rgba(90,180,220,.18));
-  stroke-dasharray:430;stroke-dashoffset:430;
-  animation:fc-airtrail-draw 14s linear infinite;
+.hero__skyMotion .hero__cloud--one{
+  width:112px;
+  left:48%;
+  top:16%;
+  animation:fc32CloudA 25s ease-in-out infinite alternate;
 }
-.hero__airTrail path:nth-child(2){stroke-width:2.2;opacity:.48;animation-delay:.18s}
-@keyframes fc-plane-climb{
-  0%{left:-19%;top:42%;transform:rotate(-5deg) scale(.78);opacity:0}
-  5%{opacity:1}
-  24%{top:35%;transform:rotate(-8deg) scale(.88)}
-  50%{top:25%;transform:rotate(-11deg) scale(1)}
-  76%{top:15%;transform:rotate(-13deg) scale(.96);opacity:1}
-  93%{opacity:1}
-  100%{left:106%;top:6%;transform:rotate(-14deg) scale(.84);opacity:0}
+.hero__skyMotion .hero__cloud--two{
+  width:96px;
+  right:4%;
+  top:29%;
+  opacity:.68;
+  animation:fc32CloudB 30s ease-in-out infinite alternate-reverse;
 }
-@keyframes fc-airtrail-draw{
-  0%,4%{stroke-dashoffset:430;opacity:0}
-  10%{opacity:.9}
-  38%{stroke-dashoffset:90;opacity:.92}
-  70%{stroke-dashoffset:0;opacity:.72}
-  92%{opacity:.55}
-  100%{stroke-dashoffset:-160;opacity:0}
+.hero__skyMotion .hero__cloud--three{
+  width:76px;
+  right:27%;
+  top:7%;
+  opacity:.50;
+  animation:fc32CloudC 34s ease-in-out infinite alternate;
 }
-@keyframes fc-cloud-float-left{from{translate:-10px 0}to{translate:42px 5px}}
-@keyframes fc-cloud-float-right{from{translate:-24px 0}to{translate:30px -5px}}
-@keyframes fc-cloud-float-far{from{translate:-10px 0}to{translate:-68px 4px}}
-@keyframes fc-sun-bob{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(5px) scale(1.025)}}
+
+/* Plane: deliberately secondary to the hero art */
+.hero__skyMotion .hero__plane{
+  position:absolute;
+  left:-110px;
+  top:38%;
+  width:92px;
+  height:46px;
+  min-width:0;
+  max-width:92px;
+  min-height:0;
+  max-height:46px;
+  margin:0;
+  padding:0;
+  overflow:visible;
+  transform-origin:center;
+  z-index:2;
+  animation:fc32Plane 16s linear infinite;
+}
+.hero__skyMotion .hero__planeArt{
+  position:absolute;
+  inset:0;
+  display:block;
+  width:92px;
+  height:46px;
+  max-width:92px;
+  max-height:46px;
+  object-fit:contain;
+  filter:drop-shadow(0 4px 4px rgba(17,72,110,.18));
+}
+
+/* Short vapor trail attached to plane */
+.hero__skyMotion .hero__airTrail{
+  position:absolute;
+  right:72px;
+  left:auto;
+  top:8px;
+  width:135px;
+  height:38px;
+  overflow:visible;
+  opacity:.64;
+  transform:none;
+}
+.hero__skyMotion .hero__airTrail path{
+  fill:none;
+  stroke:rgba(255,255,255,.90);
+  stroke-width:3.2;
+  stroke-linecap:round;
+  filter:drop-shadow(0 1px 2px rgba(86,170,210,.12));
+  stroke-dasharray:430;
+  stroke-dashoffset:430;
+  animation:fc32Trail 16s linear infinite;
+}
+.hero__skyMotion .hero__airTrail path:nth-child(2){
+  stroke-width:1.6;
+  opacity:.34;
+  animation-delay:.12s;
+}
+
+@keyframes fc32Plane{
+  0%{left:-110px;top:40%;transform:rotate(-5deg) scale(.92);opacity:0}
+  7%{opacity:.95}
+  45%{top:29%;transform:rotate(-8deg) scale(1)}
+  82%{top:19%;transform:rotate(-10deg) scale(.96);opacity:.95}
+  94%{opacity:.95}
+  100%{left:calc(100% + 110px);top:12%;transform:rotate(-11deg) scale(.90);opacity:0}
+}
+@keyframes fc32Trail{
+  0%,5%{stroke-dashoffset:430;opacity:0}
+  12%{opacity:.78}
+  42%{stroke-dashoffset:115;opacity:.78}
+  72%{stroke-dashoffset:0;opacity:.58}
+  95%{opacity:.34}
+  100%{stroke-dashoffset:-110;opacity:0}
+}
+@keyframes fc32CloudA{from{transform:translateX(-8px)}to{transform:translateX(22px) translateY(2px)}}
+@keyframes fc32CloudB{from{transform:translateX(10px)}to{transform:translateX(-18px) translateY(-2px)}}
+@keyframes fc32CloudC{from{transform:translateX(-5px)}to{transform:translateX(13px) translateY(1px)}}
+@keyframes fc32Sun{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(3px) scale(1.02)}}
+
 @media(max-width:900px){
-  .hero__sun{right:4%;top:47%;width:78px}
-  .hero__cloud--one{top:47%;left:-3%;transform:scale(.58)}
-  .hero__cloud--two{top:55%;right:0;transform:scale(.66)}
-  .hero__plane{width:98px;height:52px;left:-26%;top:58%;animation-duration:12s}
-  .hero__airTrail{width:230px;height:66px;right:74%}
-  @keyframes fc-plane-climb{
-    0%{left:-26%;top:60%;transform:rotate(-5deg) scale(.72);opacity:0}
-    7%{opacity:1}
-    48%{top:50%;transform:rotate(-10deg) scale(.9)}
-    86%{opacity:1}
-    100%{left:108%;top:39%;transform:rotate(-14deg) scale(.75);opacity:0}
+  .hero__skyMotion .hero__sun{width:46px;height:46px;right:7%;top:49%}
+  .hero__skyMotion .hero__cloud--one{width:78px;left:5%;top:48%}
+  .hero__skyMotion .hero__cloud--two{width:68px;right:2%;top:56%}
+  .hero__skyMotion .hero__cloud--three{display:none}
+  .hero__skyMotion .hero__plane,
+  .hero__skyMotion .hero__planeArt{
+    width:66px;
+    height:33px;
+    max-width:66px;
+    max-height:33px;
   }
+  .hero__skyMotion .hero__plane{left:-85px;top:58%;animation-duration:13s}
+  .hero__skyMotion .hero__airTrail{right:50px;top:6px;width:94px;height:28px}
 }
+
 @media(prefers-reduced-motion:reduce){
-  .hero__plane,.hero__airTrail path,.hero__cloud,.hero__sun{animation:none!important}
-  .hero__plane{display:none}
+  .hero__skyMotion .hero__cloud,
+  .hero__skyMotion .hero__sun,
+  .hero__skyMotion .hero__airTrail path{animation:none!important}
+  .hero__skyMotion .hero__plane{display:none!important}
 }
 
-/* ===== V2.9 — dimensional sky artwork matching approved mockup ===== */
-.hero__cloud{background:none!important;border-radius:0!important;filter:none!important;width:230px;height:auto;opacity:.96;object-fit:contain;will-change:transform}
-.hero__cloud:before,.hero__cloud:after{display:none!important}
-.hero__cloud--one{top:12%;left:-2%;transform:scale(.88);animation:fc-cloud-soft-a 26s ease-in-out infinite alternate}
-.hero__cloud--two{top:18%;right:13%;transform:scale(.74);animation:fc-cloud-soft-b 30s ease-in-out infinite alternate-reverse}
-.hero__cloud--three{top:5%;right:-4%;transform:scale(1.05);opacity:.9;animation:fc-cloud-soft-c 34s ease-in-out infinite alternate}
-.hero__plane{width:168px;height:82px;filter:none!important;animation:fc-plane-polished 15s linear infinite}
-.hero__planeArt{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 8px 7px rgba(17,72,110,.22));transform:rotate(1deg)}
-.hero__airTrail{right:72%;top:18%;width:390px;height:105px;transform:rotate(1deg)}
-.hero__airTrail path{stroke:rgba(255,255,255,.9);stroke-width:5.5;filter:drop-shadow(0 2px 3px rgba(75,160,205,.16));stroke-dasharray:540;stroke-dashoffset:540;animation:fc-airtrail-soft 15s linear infinite}
-.hero__airTrail path:nth-child(2){stroke-width:2.5;opacity:.34;animation-delay:.12s}
-@keyframes fc-plane-polished{
-  0%{left:-24%;top:43%;transform:rotate(-4deg) scale(.72);opacity:0}
-  6%{opacity:1}
-  28%{top:36%;transform:rotate(-7deg) scale(.88)}
-  55%{top:25%;transform:rotate(-10deg) scale(1)}
-  78%{top:14%;transform:rotate(-12deg) scale(.96);opacity:1}
-  94%{opacity:1}
-  100%{left:108%;top:5%;transform:rotate(-13deg) scale(.82);opacity:0}
-}
-@keyframes fc-airtrail-soft{0%,5%{stroke-dashoffset:540;opacity:0}12%{opacity:.88}45%{stroke-dashoffset:100;opacity:.82}72%{stroke-dashoffset:0;opacity:.62}94%{opacity:.36}100%{stroke-dashoffset:-170;opacity:0}}
-@keyframes fc-cloud-soft-a{from{transform:translateX(-16px) translateY(0) scale(.88)}to{transform:translateX(44px) translateY(6px) scale(.9)}}
-@keyframes fc-cloud-soft-b{from{transform:translateX(-28px) translateY(0) scale(.74)}to{transform:translateX(34px) translateY(-6px) scale(.76)}}
-@keyframes fc-cloud-soft-c{from{transform:translateX(-12px) scale(1.05)}to{transform:translateX(-70px) translateY(5px) scale(1.06)}}
-@media(max-width:900px){
- .hero__cloud{width:170px}.hero__cloud--one{top:46%;left:-10%;transform:scale(.66)}.hero__cloud--two{top:52%;right:-3%;transform:scale(.58)}.hero__cloud--three{display:none}
- .hero__plane{width:118px;height:58px;animation-duration:13s}.hero__airTrail{width:280px;height:78px;right:70%}
- @keyframes fc-plane-polished{0%{left:-30%;top:61%;transform:rotate(-4deg) scale(.68);opacity:0}8%{opacity:1}52%{top:49%;transform:rotate(-9deg) scale(.88)}88%{opacity:1}100%{left:110%;top:37%;transform:rotate(-13deg) scale(.72);opacity:0}}
-}
-
-
-/* ===== V3.0 — scaled, soft sky system ===== */
-.heroSky .hero__sun{
-  width:64px!important;height:64px!important;
-  top:8%!important;right:8%!important;
-  opacity:.88!important;
-  filter:blur(.15px) drop-shadow(0 0 18px rgba(255,242,137,.46))!important;
-  z-index:1!important;
-}
-.heroSky .hero__cloud{
-  width:118px!important;height:auto!important;
-  opacity:.78!important;
-  filter:none!important;
-  z-index:1!important;
-}
-.heroSky .hero__cloud--one{
-  top:13%!important;left:48%!important;
-  transform:scale(.9)!important;
-  animation:fc-cloud-small-a 25s ease-in-out infinite alternate!important;
-}
-.heroSky .hero__cloud--two{
-  top:27%!important;right:2%!important;
-  transform:scale(.72)!important;
-  opacity:.70!important;
-  animation:fc-cloud-small-b 31s ease-in-out infinite alternate-reverse!important;
-}
-.heroSky .hero__cloud--three{
-  top:4%!important;right:27%!important;
-  width:86px!important;
-  transform:scale(.72)!important;
-  opacity:.58!important;
-  animation:fc-cloud-small-c 34s ease-in-out infinite alternate!important;
-}
-.heroSky .hero__plane{
-  width:88px!important;height:44px!important;
-  left:-12%!important;top:34%!important;
-  z-index:2!important;
-  animation:fc-plane-small-climb 15s linear infinite!important;
-  filter:none!important;
-}
-.heroSky .hero__planeArt{
-  width:100%!important;height:100%!important;
-  object-fit:contain!important;
-  filter:drop-shadow(0 4px 4px rgba(17,72,110,.18))!important;
-}
-.heroSky .hero__airTrail{
-  width:170px!important;height:50px!important;
-  right:68%!important;top:42%!important;
-  opacity:.62!important;
-}
-.heroSky .hero__airTrail path{
-  stroke-width:4!important;
-  filter:drop-shadow(0 1px 2px rgba(255,255,255,.28))!important;
-}
-@keyframes fc-plane-small-climb{
-  0%{left:-12%;top:37%;transform:rotate(-5deg) scale(.84);opacity:0}
-  7%{opacity:.94}
-  48%{top:27%;transform:rotate(-8deg) scale(.94)}
-  90%{opacity:.94}
-  100%{left:103%;top:15%;transform:rotate(-11deg) scale(.86);opacity:0}
-}
-@keyframes fc-cloud-small-a{
-  from{translate:-8px 0}to{translate:24px 3px}
-}
-@keyframes fc-cloud-small-b{
-  from{translate:-15px 0}to{translate:18px -3px}
-}
-@keyframes fc-cloud-small-c{
-  from{translate:-6px 0}to{translate:-22px 2px}
-}
-@media(max-width:900px){
-  .heroSky .hero__sun{width:48px!important;height:48px!important;top:49%!important;right:7%!important}
-  .heroSky .hero__cloud{width:88px!important}
-  .heroSky .hero__cloud--one{top:48%!important;left:2%!important;transform:scale(.82)!important}
-  .heroSky .hero__cloud--two{top:57%!important;right:-1%!important;transform:scale(.68)!important}
-  .heroSky .hero__cloud--three{display:none!important}
-  .heroSky .hero__plane{width:68px!important;height:34px!important;top:58%!important;animation-duration:13s!important}
-  .heroSky .hero__airTrail{width:132px!important;height:42px!important}
-}
-@media(prefers-reduced-motion:reduce){
-  .heroSky .hero__cloud,.heroSky .hero__plane,.heroSky .hero__sun,.heroSky .hero__airTrail path{animation:none!important}
-  .heroSky .hero__plane{display:none!important}
-}
-
-
-/* ===== V3.1 HARD SKY RESET — fixes legacy giant plane/cloud rules ===== */
-.heroSky{
-  position:absolute!important;
-  inset:0!important;
-  overflow:hidden!important;
-  pointer-events:none!important;
-  z-index:1!important;
-}
-
-/* Clouds: intentionally small background accents */
-.heroSky .hero__cloud{
-  position:absolute!important;
-  display:block!important;
-  width:104px!important;
-  max-width:104px!important;
-  height:auto!important;
-  margin:0!important;
-  opacity:.72!important;
-  transform:none!important;
-  filter:none!important;
-}
-.heroSky .hero__cloud--one{left:48%!important;top:14%!important;width:110px!important;animation:fc-v31-cloud1 24s ease-in-out infinite alternate!important}
-.heroSky .hero__cloud--two{left:auto!important;right:3%!important;top:31%!important;width:92px!important;animation:fc-v31-cloud2 29s ease-in-out infinite alternate!important}
-.heroSky .hero__cloud--three{left:auto!important;right:29%!important;top:7%!important;width:72px!important;opacity:.52!important;animation:fc-v31-cloud3 32s ease-in-out infinite alternate!important}
-
-/* Sun */
-.heroSky .hero__sun{
-  position:absolute!important;
-  width:58px!important;
-  height:58px!important;
-  max-width:58px!important;
-  right:8%!important;
-  top:11%!important;
-  border-radius:50%!important;
-  opacity:.88!important;
-  z-index:0!important;
-}
-
-/* Plane wrapper: hard dimensions override all previous width/height/min-width rules */
-.heroSky .hero__plane{
-  position:absolute!important;
-  box-sizing:border-box!important;
-  width:82px!important;
-  min-width:0!important;
-  max-width:82px!important;
-  height:42px!important;
-  min-height:0!important;
-  max-height:42px!important;
-  left:-100px!important;
-  top:38%!important;
-  margin:0!important;
-  padding:0!important;
-  transform-origin:center!important;
-  overflow:visible!important;
-  z-index:2!important;
-  animation:fc-v31-plane 16s linear infinite!important;
-}
-.heroSky .hero__plane > svg,
-.heroSky .hero__plane > img,
-.heroSky .hero__planeArt{
-  display:block!important;
-  position:relative!important;
-  inset:auto!important;
-  width:82px!important;
-  min-width:0!important;
-  max-width:82px!important;
-  height:42px!important;
-  min-height:0!important;
-  max-height:42px!important;
-  object-fit:contain!important;
-  transform:none!important;
-}
-
-/* Airstream is compact and travels with the plane */
-.heroSky .hero__airTrail{
-  position:absolute!important;
-  width:120px!important;
-  max-width:120px!important;
-  height:34px!important;
-  right:62px!important;
-  left:auto!important;
-  top:10px!important;
-  overflow:visible!important;
-  opacity:.56!important;
-  transform:none!important;
-}
-.heroSky .hero__airTrail path{
-  fill:none!important;
-  stroke:#fff!important;
-  stroke-width:3!important;
-  stroke-linecap:round!important;
-}
-
-@keyframes fc-v31-plane{
-  0%{left:-100px;top:40%;transform:rotate(-5deg);opacity:0}
-  8%{opacity:.92}
-  50%{top:27%;transform:rotate(-8deg);opacity:.92}
-  92%{opacity:.92}
-  100%{left:calc(100% + 100px);top:14%;transform:rotate(-10deg);opacity:0}
-}
-@keyframes fc-v31-cloud1{from{translate:-8px 0}to{translate:18px 2px}}
-@keyframes fc-v31-cloud2{from{translate:10px 0}to{translate:-16px -2px}}
-@keyframes fc-v31-cloud3{from{translate:-5px 0}to{translate:12px 1px}}
-
-@media(max-width:900px){
-  .heroSky .hero__cloud--one{left:7%!important;top:47%!important;width:76px!important}
-  .heroSky .hero__cloud--two{right:3%!important;top:54%!important;width:68px!important}
-  .heroSky .hero__cloud--three{display:none!important}
-  .heroSky .hero__sun{width:44px!important;height:44px!important;right:8%!important;top:48%!important}
-  .heroSky .hero__plane,
-  .heroSky .hero__plane > svg,
-  .heroSky .hero__plane > img,
-  .heroSky .hero__planeArt{
-    width:62px!important;max-width:62px!important;height:32px!important;max-height:32px!important
-  }
-  .heroSky .hero__airTrail{width:90px!important;max-width:90px!important;height:28px!important;right:48px!important;top:7px!important}
-}
