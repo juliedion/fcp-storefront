@@ -27,7 +27,7 @@ export default function Home() {
             <div className="hero__art">
               <picture>
                 <source media="(max-width: 900px)" srcSet="/fort-hero-bg-m.png" />
-                <img src="/fort-hero-bg.png" alt="" width="1800" height="654" />
+                <img src="/fort-hero-bg-clean-v43.png" alt="" width="1800" height="654" />
               </picture>
               <span className="hero__blink-eye" aria-hidden="true"></span>
             </div>

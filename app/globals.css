@@ -1030,3 +1030,121 @@ h1,h2,h3,h4,h5,h6,.hero__title,.sectionHead h2,.collectionTitle{font-family:var(
   }
 }
 
+/* ===== V4.3 — clean Fort artifacts + reliable alien blink ===== */
+
+/* The cleaned desktop Fort asset has the damaged far-left grass pixels removed.
+   The clean repeating grass layer beneath it now shows through with no boxes/artifacts. */
+
+/* Desktop alien eye on the 1800×654 Fort artwork. */
+@media (min-width:901px){
+  .hero__art{
+    position:absolute!important;
+  }
+
+  .hero__art .hero__blink-eye,
+  .hero__blink-eye{
+    display:block!important;
+    position:absolute!important;
+    z-index:30!important;
+
+    /* Exact eye center on the monster in the Fort artwork */
+    left:80.92%!important;
+    top:69.88%!important;
+
+    /* Explicit dimensions so the eyelid cannot collapse to zero height */
+    width:1.48%!important;
+    height:1.55%!important;
+    min-width:12px!important;
+    min-height:6px!important;
+
+    right:auto!important;
+    bottom:auto!important;
+    margin:0!important;
+
+    border-radius:999px!important;
+    background:#22aeb9!important;
+    box-shadow:
+      inset 0 -2px 0 rgba(6,45,59,.22),
+      0 1px 1px rgba(255,255,255,.10)!important;
+
+    transform-origin:center center!important;
+    transform:translate(-50%,-50%) scaleY(.06)!important;
+    opacity:0!important;
+
+    animation:fc43AlienBlink 4.8s ease-in-out infinite!important;
+    pointer-events:none!important;
+  }
+}
+
+/* Mobile artwork has a different composition. */
+@media (max-width:900px){
+  .hero__art .hero__blink-eye,
+  .hero__blink-eye{
+    display:block!important;
+    position:absolute!important;
+    z-index:30!important;
+    left:71.55%!important;
+    top:66.85%!important;
+    width:2.18%!important;
+    height:1.72%!important;
+    min-width:12px!important;
+    min-height:6px!important;
+    right:auto!important;
+    bottom:auto!important;
+    border-radius:999px!important;
+    background:#22aeb9!important;
+    box-shadow:inset 0 -2px 0 rgba(6,45,59,.22)!important;
+    transform-origin:center center!important;
+    transform:translate(-50%,-50%) scaleY(.06)!important;
+    opacity:0!important;
+    animation:fc43AlienBlink 4.8s ease-in-out infinite!important;
+    pointer-events:none!important;
+  }
+}
+
+/* A clearly visible double-blink every 4.8 seconds. */
+@keyframes fc43AlienBlink{
+  0%,70%,100%{
+    transform:translate(-50%,-50%) scaleY(.06);
+    opacity:0;
+  }
+
+  /* first blink */
+  73%{
+    transform:translate(-50%,-50%) scaleY(.35);
+    opacity:.95;
+  }
+  75%,78%{
+    transform:translate(-50%,-50%) scaleY(1);
+    opacity:1;
+  }
+  80%{
+    transform:translate(-50%,-50%) scaleY(.08);
+    opacity:0;
+  }
+
+  /* quick second blink */
+  84%{
+    transform:translate(-50%,-50%) scaleY(.35);
+    opacity:.95;
+  }
+  86%,89%{
+    transform:translate(-50%,-50%) scaleY(1);
+    opacity:1;
+  }
+  92%{
+    transform:translate(-50%,-50%) scaleY(.08);
+    opacity:0;
+  }
+}
+
+/* Keep the blink functional even if older reduced-motion rules tried to hide it.
+   It is a tiny decorative blink rather than a large motion effect. */
+@media (prefers-reduced-motion:reduce){
+  .hero__art .hero__blink-eye,
+  .hero__blink-eye{
+    display:block!important;
+    animation:fc43AlienBlink 7s ease-in-out infinite!important;
+  }
+}
+
