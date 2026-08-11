@@ -146,3 +146,70 @@ h1,h2,h3,h4,h5,h6,.hero__title,.sectionHead h2,.collectionTitle{font-family:var(
   font-weight:900;
   letter-spacing:.02em;
 }
+
+
+/* ===== V2.4 — exact user-supplied live hero artwork ===== */
+.hero.hero--fort{
+  background:linear-gradient(108deg,#b5dff8 0%,#b4def8 36%,#81cff3 64%,#58b8ea 100%);
+}
+.hero__scene::before{
+  background:linear-gradient(90deg,rgba(181,223,248,.16) 0%,rgba(181,223,248,.08) 28%,rgba(181,223,248,0) 58%);
+}
+.hero__artPicture{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:flex-end;
+  justify-content:flex-end;
+  z-index:0;
+}
+.hero__artPicture img{
+  width:min(85vw,1320px);
+  height:auto;
+  max-height:640px;
+  object-fit:contain;
+  object-position:right bottom;
+  margin-right:clamp(-120px,-6vw,-40px);
+  margin-bottom:-2px;
+  display:block;
+}
+/* Soft background details behind the transparent supplied artwork. */
+.hero.hero--fort::before{
+  content:"";
+  display:block;
+  position:absolute;
+  z-index:0;
+  width:115px;
+  height:115px;
+  border-radius:50%;
+  right:7%;
+  top:9%;
+  background:#fff39c;
+  box-shadow:0 0 34px rgba(255,241,133,.55);
+}
+.hero.hero--fort::after{
+  content:"";
+  display:block;
+  position:absolute;
+  z-index:0;
+  width:185px;
+  height:58px;
+  right:2%;
+  top:22%;
+  border-radius:999px;
+  background:rgba(247,252,255,.93);
+  box-shadow:-72px 38px 0 -5px rgba(247,252,255,.93),-116px 14px 0 -16px rgba(247,252,255,.93);
+}
+@media(max-width:1100px){
+  .hero__artPicture img{width:min(78vw,900px);max-height:485px}
+}
+@media(max-width:900px){
+  .hero__scene::before{background:linear-gradient(180deg,rgba(181,223,248,.92) 0%,rgba(181,223,248,.72) 35%,rgba(181,223,248,.18) 62%,rgba(181,223,248,0) 82%)}
+  .hero__artPicture{justify-content:center}
+  .hero__artPicture img{width:1040px;max-width:none;max-height:420px;margin-right:-120px}
+  .hero.hero--fort::before{right:8%;top:44%;width:88px;height:88px}
+  .hero.hero--fort::after{right:0;top:52%;transform:scale(.82)}
+}
+@media(max-width:560px){
+  .hero__artPicture img{width:800px;max-height:360px;margin-right:-168px}
+}

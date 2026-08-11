@@ -9,7 +9,10 @@ export default function Home() {
       <main>
         <section className="hero hero--fort">
           <div className="hero__scene" aria-hidden="true">
-            <img src="/fort-hero-bg.png" alt="" width="1800" height="650" />
+            <picture className="hero__artPicture">
+              <source media="(max-width: 900px)" srcSet="/fort-hero-bg-m.png" />
+              <img src="/fort-hero-bg.png" alt="" width="1800" height="654" />
+            </picture>
             <span className="hero__blink-eye" aria-hidden="true"></span>
           </div>
           <div className="page-width hero__overlay-wrap">
