@@ -799,3 +799,234 @@ h1,h2,h3,h4,h5,h6,.hero__title,.sectionHead h2,.collectionTitle{font-family:var(
 .hero__leftGrass img{display:none!important}
 
 /* Preserve the working V3.9 sky and plane animation unchanged. */
+
+/* ===== V4.1 — responsive hero copy fix =====
+   Keeps the approved art/animation untouched.
+   Fixes H1, paragraph and buttons between full desktop and mobile. */
+
+/* Wide desktop: preserve the intended two-line headline. */
+@media (min-width:1201px){
+  .hero__copy-card{
+    width:43%!important;
+    max-width:500px!important;
+  }
+  .hero.hero--fort .hero__title,
+  .hero__title{
+    width:100%!important;
+    max-width:500px!important;
+    font-size:52.8px!important;
+    line-height:.94!important;
+  }
+  .hero__subtitle{
+    max-width:420px!important;
+  }
+}
+
+/* Laptop / narrower desktop.
+   Give the copy more horizontal room and scale everything together. */
+@media (min-width:901px) and (max-width:1200px){
+  .hero__copy-card{
+    left:6.2%!important;
+    top:17%!important;
+    width:44%!important;
+    max-width:470px!important;
+  }
+
+  .hero.hero--fort .hero__title,
+  .hero__title{
+    width:100%!important;
+    max-width:470px!important;
+    font-size:clamp(38px,4.25vw,49px)!important;
+    line-height:.94!important;
+    letter-spacing:.018em!important;
+    margin-bottom:18px!important;
+  }
+
+  /* Keep the colored words inline so the title naturally resolves to two lines
+     whenever the available width allows it. */
+  .hero.hero--fort .hero__title .text-pink,
+  .hero.hero--fort .hero__title .text-teal,
+  .hero__title .text-pink,
+  .hero__title .text-teal{
+    display:inline!important;
+  }
+
+  .hero__subtitle{
+    width:100%!important;
+    max-width:400px!important;
+    font-size:clamp(14px,1.35vw,16px)!important;
+    line-height:1.42!important;
+    margin-bottom:20px!important;
+  }
+
+  .hero__actions{
+    display:flex!important;
+    flex-wrap:nowrap!important;
+    align-items:center!important;
+    gap:12px!important;
+  }
+
+  .hero__actions .btn{
+    flex:0 0 auto!important;
+    padding:12px 18px!important;
+    font-size:12.5px!important;
+    border-radius:14px!important;
+  }
+}
+
+/* Small laptop / large tablet: let the copy shrink another step before
+   switching to the dedicated mobile layout at 900px. */
+@media (min-width:901px) and (max-width:1025px){
+  .hero__copy-card{
+    left:5.5%!important;
+    top:14%!important;
+    width:45%!important;
+    max-width:440px!important;
+  }
+
+  .hero.hero--fort .hero__title,
+  .hero__title{
+    max-width:440px!important;
+    font-size:clamp(35px,4.1vw,42px)!important;
+  }
+
+  .hero__subtitle{
+    max-width:365px!important;
+    font-size:14px!important;
+    margin-bottom:17px!important;
+  }
+
+  .hero__actions{gap:9px!important}
+  .hero__actions .btn{
+    padding:11px 15px!important;
+    font-size:11.5px!important;
+  }
+}
+
+/* Mobile: make the existing layout more comfortable and prevent buttons
+   from clipping or colliding with the artwork. */
+@media (max-width:900px){
+  .hero__copy-card{
+    width:min(360px,88vw)!important;
+    max-width:min(360px,88vw)!important;
+  }
+
+  .hero.hero--fort .hero__title,
+  .hero__title{
+    width:100%!important;
+    max-width:350px!important;
+    font-size:clamp(39px,10.5vw,50px)!important;
+    line-height:.94!important;
+    margin-bottom:17px!important;
+  }
+
+  .hero__subtitle{
+    width:100%!important;
+    max-width:330px!important;
+    font-size:14px!important;
+    line-height:1.42!important;
+    margin-bottom:18px!important;
+  }
+
+  .hero__actions{
+    display:flex!important;
+    flex-wrap:wrap!important;
+    gap:10px!important;
+  }
+
+  .hero__actions .btn{
+    padding:11px 16px!important;
+    font-size:11.5px!important;
+  }
+}
+
+@media (max-width:520px){
+  .hero__copy-card{
+    width:calc(100vw - 36px)!important;
+    max-width:calc(100vw - 36px)!important;
+  }
+
+  .hero.hero--fort .hero__title,
+  .hero__title{
+    max-width:330px!important;
+    font-size:clamp(37px,11vw,46px)!important;
+  }
+
+  .hero__subtitle{
+    max-width:310px!important;
+    font-size:13.5px!important;
+  }
+
+  .hero__actions{
+    max-width:330px!important;
+  }
+}
+
+/* ===== V4.2 — alien blink alignment =====
+   Desktop and mobile Fort artwork have different eye coordinates. */
+
+/* Desktop Fort (1800 × 654): center eyelid precisely over the alien's eye. */
+@media (min-width:901px){
+  .hero__art .hero__blink-eye,
+  .hero__blink-eye{
+    left:80.95%!important;
+    top:69.75%!important;
+    width:1.45%!important;
+    aspect-ratio:1.45 / 1!important;
+    height:auto!important;
+    right:auto!important;
+    bottom:auto!important;
+    border-radius:999px!important;
+    transform:translate(-50%,-50%) scaleY(0)!important;
+    transform-origin:center!important;
+    animation:fc42AlienBlink 5.5s infinite!important;
+  }
+}
+
+/* Mobile Fort uses a different crop/composition, so align to its actual eye. */
+@media (max-width:900px){
+  .hero__art .hero__blink-eye,
+  .hero__blink-eye{
+    left:71.55%!important;
+    top:66.75%!important;
+    width:2.15%!important;
+    aspect-ratio:1.45 / 1!important;
+    height:auto!important;
+    right:auto!important;
+    bottom:auto!important;
+    transform:translate(-50%,-50%) scaleY(0)!important;
+    animation:fc42AlienBlink 5.5s infinite!important;
+  }
+}
+
+@keyframes fc42AlienBlink{
+  0%,87%,100%{
+    transform:translate(-50%,-50%) scaleY(0);
+    opacity:0;
+  }
+  89%{
+    transform:translate(-50%,-50%) scaleY(.35);
+    opacity:.9;
+  }
+  90.5%,92.5%{
+    transform:translate(-50%,-50%) scaleY(1);
+    opacity:1;
+  }
+  94%{
+    transform:translate(-50%,-50%) scaleY(.35);
+    opacity:.9;
+  }
+  95.5%{
+    transform:translate(-50%,-50%) scaleY(0);
+    opacity:0;
+  }
+}
+
+@media (prefers-reduced-motion:reduce){
+  .hero__art .hero__blink-eye,
+  .hero__blink-eye{
+    animation:none!important;
+    opacity:0!important;
+  }
+}
+
