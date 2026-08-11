@@ -9,11 +9,27 @@ export default function Home() {
       <main>
         <section className="hero hero--fort">
           <div className="hero__scene" aria-hidden="true">
-            <picture className="hero__artPicture">
-              <source media="(max-width: 900px)" srcSet="/fort-hero-bg-m.png" />
-              <img src="/fort-hero-bg.png" alt="" width="1800" height="654" />
-            </picture>
-            <span className="hero__blink-eye" aria-hidden="true"></span>
+            <div className="hero__skyMotion">
+              <span className="hero__sun" />
+              <span className="hero__cloud hero__cloud--one" />
+              <span className="hero__cloud hero__cloud--two" />
+              <span className="hero__cloud hero__cloud--three" />
+              <span className="hero__plane">
+                <svg viewBox="0 0 120 46" aria-hidden="true">
+                  <path d="M6 24 L52 19 L88 4 L97 7 L76 20 L113 18 L116 23 L75 29 L94 40 L85 43 L53 31 L8 31 Z" fill="#e9fbff" stroke="#0b4f78" strokeWidth="3" strokeLinejoin="round"/>
+                  <path d="M50 20 L67 7 L75 8 L66 21 Z" fill="#18bfe8"/>
+                  <path d="M73 29 L88 39 L82 42 L63 31 Z" fill="#ff2f8a"/>
+                  <circle cx="101" cy="21" r="3" fill="#ffdc3d"/>
+                </svg>
+              </span>
+            </div>
+            <div className="hero__art">
+              <picture>
+                <source media="(max-width: 900px)" srcSet="/fort-hero-bg-m.png" />
+                <img src="/fort-hero-bg.png" alt="" width="1800" height="654" />
+              </picture>
+              <span className="hero__blink-eye" aria-hidden="true"></span>
+            </div>
           </div>
           <div className="page-width hero__overlay-wrap">
             <div className="hero__copy-card">
@@ -81,7 +97,7 @@ export default function Home() {
         </section>
       </main>
       <footer>
-        <div className="brand footerBrand"><span className="fort">FORT</span><span className="crazy">CRAZYPANTS</span></div>
+        <a href="/" className="footerLogo" aria-label="Fort Crazypants home"><img src="/fort-crazypants-logo.png" alt="Fort Crazypants — Find Your Next Favorite Thing" /></a>
         <p>Crazy good finds for real family life.</p>
         <p className="disclosure">Fort Crazypants may earn a commission when you buy through some links on this site. It doesn't cost you anything extra.</p>
       </footer>

@@ -34,7 +34,7 @@ export default async function FindPage({ params }: { params: Promise<{ slug: str
           </div>
         </section>
       </main>
-      <footer><p>© Fort Crazypants · Crazy good finds for real family life.</p></footer>
+      <footer><a href="/" className="footerLogo" aria-label="Fort Crazypants home"><img src="/fort-crazypants-logo.png" alt="Fort Crazypants — Find Your Next Favorite Thing" /></a><p>© Fort Crazypants · Crazy good finds for real family life.</p></footer>
     </>
   );
 }

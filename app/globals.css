@@ -148,68 +148,103 @@ h1,h2,h3,h4,h5,h6,.hero__title,.sectionHead h2,.collectionTitle{font-family:var(
 }
 
 
-/* ===== V2.4 — exact user-supplied live hero artwork ===== */
-.hero.hero--fort{
-  background:linear-gradient(108deg,#b5dff8 0%,#b4def8 36%,#81cff3 64%,#58b8ea 100%);
+/* ===== V2.5 — animation anchored to the actual Fort artwork ===== */
+.hero__scene{display:flex;align-items:flex-end;justify-content:flex-end;}
+.hero__art{position:relative;width:min(85vw,1320px);height:auto;margin-right:clamp(-120px,-6vw,-40px);margin-bottom:-2px;flex:0 0 auto;}
+.hero__art picture,.hero__art img{display:block;width:100%;height:auto;}
+.hero__art .hero__blink-eye{
+  position:absolute;z-index:4;
+  left:80.85%;top:67.55%;
+  width:2.05%;aspect-ratio:1.28/1;
+  right:auto;bottom:auto;height:auto;
+  border-radius:999px;background:#16aab6;
+  box-shadow:inset 0 -2px 0 rgba(6,26,58,.16);
+  transform:translate(-50%,-50%) scaleY(0);
+  transform-origin:center;
+  animation:fc-alien-blink-art 5.5s infinite;
 }
-.hero__scene::before{
-  background:linear-gradient(90deg,rgba(181,223,248,.16) 0%,rgba(181,223,248,.08) 28%,rgba(181,223,248,0) 58%);
-}
-.hero__artPicture{
-  position:absolute;
-  inset:0;
-  display:flex;
-  align-items:flex-end;
-  justify-content:flex-end;
-  z-index:0;
-}
-.hero__artPicture img{
-  width:min(85vw,1320px);
-  height:auto;
-  max-height:640px;
-  object-fit:contain;
-  object-position:right bottom;
-  margin-right:clamp(-120px,-6vw,-40px);
-  margin-bottom:-2px;
-  display:block;
-}
-/* Soft background details behind the transparent supplied artwork. */
-.hero.hero--fort::before{
-  content:"";
-  display:block;
-  position:absolute;
-  z-index:0;
-  width:115px;
-  height:115px;
-  border-radius:50%;
-  right:7%;
-  top:9%;
-  background:#fff39c;
-  box-shadow:0 0 34px rgba(255,241,133,.55);
-}
-.hero.hero--fort::after{
-  content:"";
-  display:block;
-  position:absolute;
-  z-index:0;
-  width:185px;
-  height:58px;
-  right:2%;
-  top:22%;
-  border-radius:999px;
-  background:rgba(247,252,255,.93);
-  box-shadow:-72px 38px 0 -5px rgba(247,252,255,.93),-116px 14px 0 -16px rgba(247,252,255,.93);
+@keyframes fc-alien-blink-art{
+  0%,88%,100%{transform:translate(-50%,-50%) scaleY(0);opacity:0}
+  90%,93%{transform:translate(-50%,-50%) scaleY(1);opacity:1}
+  95%{transform:translate(-50%,-50%) scaleY(0);opacity:0}
 }
 @media(max-width:1100px){
-  .hero__artPicture img{width:min(78vw,900px);max-height:485px}
+  .hero__art{width:min(78vw,900px);}
 }
 @media(max-width:900px){
-  .hero__scene::before{background:linear-gradient(180deg,rgba(181,223,248,.92) 0%,rgba(181,223,248,.72) 35%,rgba(181,223,248,.18) 62%,rgba(181,223,248,0) 82%)}
-  .hero__artPicture{justify-content:center}
-  .hero__artPicture img{width:1040px;max-width:none;max-height:420px;margin-right:-120px}
-  .hero.hero--fort::before{right:8%;top:44%;width:88px;height:88px}
-  .hero.hero--fort::after{right:0;top:52%;transform:scale(.82)}
+  .hero__scene{justify-content:center;}
+  .hero__art{width:1040px;max-width:none;margin-right:-120px;margin-bottom:0;}
+  .hero__art .hero__blink-eye{left:71.45%;top:69.75%;width:2.7%;}
 }
 @media(max-width:560px){
-  .hero__artPicture img{width:800px;max-height:360px;margin-right:-168px}
+  .hero__art{width:800px;margin-right:-168px;}
+  .hero__art .hero__blink-eye{left:71.45%;top:69.75%;width:2.7%;}
 }
+@media(prefers-reduced-motion:reduce){
+  .hero__art .hero__blink-eye{animation:none;opacity:0;}
+}
+
+
+/* ===== V2.6 — full Shopify-style sky motion restored ===== */
+.hero.hero--fort{
+  background:linear-gradient(108deg,#c6eeff 0%,#9ee3fb 42%,#59c6ef 100%);
+}
+.hero__scene::before{
+  background:linear-gradient(90deg,rgba(198,238,255,.92) 0%,rgba(198,238,255,.62) 31%,rgba(198,238,255,.14) 51%,rgba(198,238,255,0) 70%);
+  z-index:1;
+}
+.hero__skyMotion{position:absolute;inset:0;z-index:2;overflow:hidden;pointer-events:none}
+.hero__art{z-index:3}
+.hero__sun{
+  position:absolute;right:9%;top:13%;width:92px;aspect-ratio:1;border-radius:50%;
+  background:#fff38f;box-shadow:0 0 36px rgba(255,243,143,.75);
+  animation:fc-sun-pulse 7s ease-in-out infinite;
+}
+.hero__cloud{
+  position:absolute;width:142px;height:46px;border-radius:999px;background:#f7fcff;
+  filter:drop-shadow(0 6px 6px rgba(28,115,159,.08));opacity:.95;
+}
+.hero__cloud:before,.hero__cloud:after{content:"";position:absolute;background:inherit;border-radius:50%;bottom:0}
+.hero__cloud:before{width:72px;height:72px;left:22px}.hero__cloud:after{width:88px;height:88px;right:10px}
+.hero__cloud--one{top:17%;left:51%;transform:scale(.72);animation:fc-cloud-drift-a 20s ease-in-out infinite alternate}
+.hero__cloud--two{top:27%;right:7%;transform:scale(.9);animation:fc-cloud-drift-b 24s ease-in-out infinite alternate-reverse}
+.hero__cloud--three{top:8%;right:-4%;transform:scale(1.12);animation:fc-cloud-drift-c 28s ease-in-out infinite alternate}
+.hero__plane{
+  position:absolute;right:-9%;top:8%;width:92px;height:auto;
+  transform:rotate(-8deg);filter:drop-shadow(0 4px 3px rgba(3,49,80,.18));
+  animation:fc-plane-fly 16s linear infinite;
+}
+.hero__plane svg{display:block;width:100%;height:auto}
+@keyframes fc-cloud-drift-a{from{translate:-18px 0}to{translate:35px 5px}}
+@keyframes fc-cloud-drift-b{from{translate:-28px 0}to{translate:34px -4px}}
+@keyframes fc-cloud-drift-c{from{translate:-14px 0}to{translate:-62px 6px}}
+@keyframes fc-plane-fly{
+  0%{right:-10%;top:8%;transform:rotate(-8deg) scale(.9);opacity:0}
+  7%{opacity:1}
+  48%{top:14%;transform:rotate(-12deg) scale(1)}
+  90%{opacity:1}
+  100%{right:43%;top:5%;transform:rotate(-15deg) scale(.88);opacity:0}
+}
+@keyframes fc-sun-pulse{0%,100%{transform:scale(1);opacity:.92}50%{transform:scale(1.04);opacity:1}}
+@media(max-width:900px){
+  .hero__sun{right:5%;top:48%;width:72px}
+  .hero__cloud--one{top:48%;left:5%;transform:scale(.55)}
+  .hero__cloud--two{top:56%;right:2%;transform:scale(.64)}
+  .hero__cloud--three{display:none}
+  .hero__plane{top:46%;width:72px;animation-duration:14s}
+  @keyframes fc-plane-fly{
+    0%{right:-18%;top:46%;transform:rotate(-8deg) scale(.75);opacity:0}
+    8%{opacity:1}
+    88%{opacity:1}
+    100%{right:74%;top:41%;transform:rotate(-14deg) scale(.68);opacity:0}
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .hero__cloud,.hero__plane,.hero__sun{animation:none!important}
+  .hero__plane{display:none}
+}
+
+/* V2.7 — footer uses the exact same logo asset as the header */
+.footerLogo{display:block;width:190px;max-width:48vw;margin-bottom:18px}
+.footerLogo img{display:block;width:100%;height:auto;object-fit:contain}
+@media(max-width:620px){.footerLogo{width:160px}}
