@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Nunito:wght@400;500;600;700;800;900&display=swap');
 :root{
   --ink:#103d3b; --deep:#073c3a; --green:#0b5b56; --mint:#1fa584;
   --cream:#f6f1e5; --paper:#fbfaf6; --line:#ded8ca; --orange:#ef6f32; --pink:#f49ca8;
@@ -80,3 +81,43 @@ h1,h2,h3,h4,h5,h6,.hero__title,.sectionHead h2,.collectionTitle{font-family:var(
 @media(max-width:1100px){.hero__scene img{width:min(78vw,900px);max-height:485px}.hero__title{font-size:clamp(2.55rem,6vw,4.3rem);max-width:400px}.hero__copy-card{max-width:405px}}
 @media(max-width:900px){.hero.hero--fort,.hero__overlay-wrap{min-height:690px}.hero__overlay-wrap{align-items:flex-start}.hero__copy-card{padding-top:34px;max-width:380px}.hero__scene{align-items:flex-end;justify-content:center}.hero__scene::before{background:linear-gradient(180deg,rgba(255,247,238,1) 0%,rgba(255,247,238,.93) 36%,rgba(255,247,238,.36) 60%,rgba(255,247,238,0) 82%)}.hero__scene img{width:1040px;max-width:none;max-height:420px;margin-right:-120px}.hero__blink-eye{right:185px;bottom:92px;width:22px;height:17px}}
 @media(max-width:560px){.hero.hero--fort,.hero__overlay-wrap{min-height:650px}.hero__title{font-size:clamp(2.45rem,13vw,3.35rem);max-width:310px}.hero__subtitle{max-width:300px;font-size:.96rem}.hero__scene img{width:800px;max-height:360px;margin-right:-168px}.hero__blink-eye{right:112px;bottom:77px;width:18px;height:14px}}
+
+
+/* ===== V2.2 — exact Shopify hero typography override =====
+   These selectors intentionally outrank legacy .hero h1 rules above. */
+.hero.hero--fort .hero__title{
+  font-family:'Luckiest Guy',system-ui,sans-serif;
+  max-width:460px;
+  font-size:clamp(2.7rem,5.05vw,5rem);
+  font-weight:400;
+  line-height:.94;
+  letter-spacing:.02em;
+  margin:0 0 20px;
+  text-transform:uppercase;
+  color:#061A3A;
+  text-shadow:none;
+}
+.hero.hero--fort .hero__subtitle{
+  font-family:'Nunito',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  max-width:415px;
+  font-size:clamp(1rem,1.25vw,1.16rem);
+  line-height:1.45;
+  font-weight:800;
+  color:#061A3A;
+  margin:0 0 26px;
+}
+.hero.hero--fort .hero__actions .btn{
+  font-family:'Luckiest Guy',system-ui,sans-serif;
+  font-weight:400;
+  letter-spacing:.04em;
+}
+@media(max-width:1100px){
+  .hero.hero--fort .hero__title{font-size:clamp(2.55rem,6vw,4.3rem);max-width:400px}
+}
+@media(max-width:900px){
+  .hero.hero--fort .hero__title{font-size:3.55rem;max-width:400px;letter-spacing:.02em;line-height:.94}
+}
+@media(max-width:560px){
+  .hero.hero--fort .hero__title{font-size:3.05rem;max-width:310px;letter-spacing:.02em;line-height:.94}
+  .hero.hero--fort .hero__subtitle{max-width:300px;font-size:.98rem}
+}
