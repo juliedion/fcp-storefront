@@ -14,12 +14,24 @@ export default function Home() {
               <span className="hero__cloud hero__cloud--one" />
               <span className="hero__cloud hero__cloud--two" />
               <span className="hero__cloud hero__cloud--three" />
-              <span className="hero__plane">
-                <svg viewBox="0 0 120 46" aria-hidden="true">
-                  <path d="M6 24 L52 19 L88 4 L97 7 L76 20 L113 18 L116 23 L75 29 L94 40 L85 43 L53 31 L8 31 Z" fill="#e9fbff" stroke="#0b4f78" strokeWidth="3" strokeLinejoin="round"/>
-                  <path d="M50 20 L67 7 L75 8 L66 21 Z" fill="#18bfe8"/>
-                  <path d="M73 29 L88 39 L82 42 L63 31 Z" fill="#ff2f8a"/>
-                  <circle cx="101" cy="21" r="3" fill="#ffdc3d"/>
+              <span className="hero__plane" aria-hidden="true">
+                <svg className="hero__airTrail" viewBox="0 0 330 100" preserveAspectRatio="none">
+                  <path d="M320 52 C250 50 230 80 175 72 C125 65 118 32 72 41 C42 47 28 70 4 67" />
+                  <path d="M318 58 C252 58 226 88 170 80 C118 73 109 41 66 49" />
+                </svg>
+                <svg className="hero__planeArt" viewBox="0 0 180 92">
+                  <g stroke="#164b78" strokeWidth="4" strokeLinejoin="round" strokeLinecap="round">
+                    <path d="M24 48 C55 44 83 38 116 31 C139 26 158 27 170 35 C174 38 174 43 170 46 C156 57 133 61 108 59 L70 57 L35 65 Z" fill="#fffaf0"/>
+                    <path d="M76 40 L103 10 C106 7 111 7 115 10 L129 25 L112 35 Z" fill="#ff4b77"/>
+                    <path d="M83 58 L117 82 C121 85 127 84 130 80 L138 62 L110 56 Z" fill="#ff4b77"/>
+                    <path d="M36 46 L18 26 L10 31 L23 50 Z" fill="#ff4b77"/>
+                    <path d="M35 61 L19 75 L12 69 L25 56 Z" fill="#ff4b77"/>
+                    <path d="M158 32 C166 33 173 37 176 41 C171 46 164 49 157 51 Z" fill="#ff9f3c"/>
+                  </g>
+                  <g fill="#64d8f3" stroke="#164b78" strokeWidth="2.5">
+                    <circle cx="118" cy="39" r="5"/><circle cx="135" cy="37" r="5"/><circle cx="151" cy="38" r="5"/>
+                  </g>
+                  <circle cx="102" cy="48" r="3.5" fill="#ffdd46"/>
                 </svg>
               </span>
             </div>
