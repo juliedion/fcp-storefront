@@ -353,3 +353,173 @@ h1,h2,h3,h4,h5,h6,.hero__title,.sectionHead h2,.collectionTitle{font-family:var(
   .hero__skyMotion .hero__plane{display:none!important}
 }
 
+/* ===== V3.3 — match the approved original hero composition ===== */
+.hero.hero--fort{
+  min-height:clamp(390px,34.5vw,560px);
+  background:linear-gradient(108deg,#aee6fb 0%,#78d1f3 50%,#48bdec 100%);
+}
+.hero__scene{
+  position:absolute;
+  inset:0;
+  display:block;
+  overflow:hidden;
+}
+.hero__scene::before{
+  display:none!important;
+}
+
+/* The supplied Fort image already contains the grass.
+   Anchor the full artwork to the bottom at 100% hero width, matching the reference. */
+.hero__art{
+  position:absolute!important;
+  z-index:3!important;
+  width:100%!important;
+  max-width:none!important;
+  height:auto!important;
+  left:0!important;
+  right:0!important;
+  bottom:-1px!important;
+  margin:0!important;
+}
+.hero__art picture,
+.hero__art picture img,
+.hero__art > img{
+  display:block!important;
+  width:100%!important;
+  max-width:none!important;
+  height:auto!important;
+  object-fit:contain!important;
+  object-position:center bottom!important;
+}
+
+/* Keep the blink attached to the corrected desktop artwork. */
+.hero__art .hero__blink-eye{
+  left:80.85%!important;
+  top:67.55%!important;
+  width:2.05%!important;
+}
+
+/* Sky placement matched to the approved reference. */
+.hero__skyMotion{
+  position:absolute;
+  inset:0;
+  z-index:2;
+  overflow:hidden;
+}
+.hero__skyMotion .hero__sun{
+  width:72px!important;
+  height:72px!important;
+  right:4.4%!important;
+  top:5.5%!important;
+  background:radial-gradient(circle at 36% 34%,#fffde0 0 18%,#fff59a 48%,#ffd864 100%)!important;
+  box-shadow:0 0 22px rgba(255,245,157,.78),0 0 52px rgba(255,229,93,.48)!important;
+  opacity:.95!important;
+}
+
+/* Four small, soft cloud groups positioned like the reference. */
+.hero__skyMotion .hero__cloud{
+  position:absolute!important;
+  display:block!important;
+  height:auto!important;
+  opacity:.82!important;
+  filter:none!important;
+}
+.hero__skyMotion .hero__cloud--one{
+  width:132px!important;
+  left:-1.5%!important;
+  top:3.5%!important;
+  animation:fc33Cloud1 26s ease-in-out infinite alternate!important;
+}
+.hero__skyMotion .hero__cloud--two{
+  width:112px!important;
+  left:39.5%!important;
+  top:31%!important;
+  opacity:.67!important;
+  animation:fc33Cloud2 30s ease-in-out infinite alternate-reverse!important;
+}
+.hero__skyMotion .hero__cloud--three{
+  width:142px!important;
+  right:7.5%!important;
+  top:9%!important;
+  animation:fc33Cloud3 32s ease-in-out infinite alternate!important;
+}
+.hero__skyMotion .hero__cloud--four{
+  width:94px!important;
+  right:-1.5%!important;
+  top:35%!important;
+  opacity:.70!important;
+  animation:fc33Cloud4 29s ease-in-out infinite alternate-reverse!important;
+}
+
+/* Keep the approved small plane, just align its flight path with the original reference. */
+.hero__skyMotion .hero__plane{
+  width:92px!important;
+  height:46px!important;
+  max-width:92px!important;
+  max-height:46px!important;
+  top:24%!important;
+  animation:fc33Plane 16s linear infinite!important;
+}
+.hero__skyMotion .hero__planeArt{
+  width:92px!important;
+  height:46px!important;
+  max-width:92px!important;
+  max-height:46px!important;
+}
+.hero__skyMotion .hero__airTrail{
+  width:150px!important;
+  height:46px!important;
+  right:70px!important;
+  top:7px!important;
+}
+
+/* Match copy block placement in the approved reference. */
+.hero__overlay-wrap{
+  min-height:clamp(390px,34.5vw,560px)!important;
+  display:flex!important;
+  align-items:center!important;
+  position:relative!important;
+  z-index:5!important;
+}
+.hero__copy-card{
+  width:min(390px,39vw)!important;
+  max-width:390px!important;
+  padding-top:2%!important;
+}
+.hero__eyebrow{display:none!important}
+
+@keyframes fc33Plane{
+  0%{left:-110px;top:29%;transform:rotate(-5deg) scale(.90);opacity:0}
+  7%{opacity:.96}
+  42%{top:20%;transform:rotate(-7deg) scale(1)}
+  76%{top:12%;transform:rotate(-9deg) scale(.96);opacity:.96}
+  94%{opacity:.94}
+  100%{left:calc(100% + 110px);top:4%;transform:rotate(-10deg) scale(.90);opacity:0}
+}
+@keyframes fc33Cloud1{from{transform:translateX(-5px)}to{transform:translateX(20px) translateY(1px)}}
+@keyframes fc33Cloud2{from{transform:translateX(8px)}to{transform:translateX(-14px) translateY(-2px)}}
+@keyframes fc33Cloud3{from{transform:translateX(-8px)}to{transform:translateX(14px) translateY(2px)}}
+@keyframes fc33Cloud4{from{transform:translateX(8px)}to{transform:translateX(-12px) translateY(1px)}}
+
+@media(max-width:900px){
+  .hero.hero--fort,.hero__overlay-wrap{min-height:650px!important}
+  .hero__art{
+    width:800px!important;
+    left:auto!important;
+    right:-168px!important;
+    bottom:0!important;
+  }
+  .hero__art picture,.hero__art picture img{width:800px!important}
+  .hero__skyMotion .hero__sun{width:48px!important;height:48px!important;right:6%!important;top:48%!important}
+  .hero__skyMotion .hero__cloud--one{width:84px!important;left:2%!important;top:46%!important}
+  .hero__skyMotion .hero__cloud--two{width:72px!important;left:48%!important;top:54%!important}
+  .hero__skyMotion .hero__cloud--three{width:88px!important;right:3%!important;top:50%!important}
+  .hero__skyMotion .hero__cloud--four{display:none!important}
+  .hero__copy-card{width:min(330px,88vw)!important;max-width:330px!important;padding-top:28px!important}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .hero__skyMotion .hero__cloud,
+  .hero__skyMotion .hero__sun{animation:none!important}
+}
+

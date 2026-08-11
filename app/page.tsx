@@ -14,6 +14,7 @@ export default function Home() {
               <img className="hero__cloud hero__cloud--one" src="/fcp-cloud-soft.svg" alt="" />
               <img className="hero__cloud hero__cloud--two" src="/fcp-cloud-soft.svg" alt="" />
               <img className="hero__cloud hero__cloud--three" src="/fcp-cloud-soft.svg" alt="" />
+              <img className="hero__cloud hero__cloud--four" src="/fcp-cloud-soft.svg" alt="" />
               <span className="hero__plane" aria-hidden="true">
                 <svg className="hero__airTrail" viewBox="0 0 420 120" preserveAspectRatio="none">
                   <path d="M410 68 C335 66 309 96 247 86 C190 77 182 40 128 49 C91 55 76 84 42 79 C25 77 16 69 5 64" />
