@@ -10,11 +10,10 @@ export default function Home() {
         <section className="hero hero--fort">
           <div className="hero__scene" aria-hidden="true">
             <div className="hero__skyMotion">
-              <span className="hero__sun" />
-              <img className="hero__cloud hero__cloud--one" src="/fcp-cloud-soft.svg" alt="" />
-              <img className="hero__cloud hero__cloud--two" src="/fcp-cloud-soft.svg" alt="" />
-              <img className="hero__cloud hero__cloud--three" src="/fcp-cloud-soft.svg" alt="" />
-              <img className="hero__cloud hero__cloud--four" src="/fcp-cloud-soft.svg" alt="" />
+              <img className="hero__cloudRef hero__cloudRef--left" src="/cloud-ref-left.png" alt="" />
+              <img className="hero__cloudRef hero__cloudRef--mid" src="/cloud-ref-mid.png" alt="" />
+              <img className="hero__sunCloudRef" src="/sun-cloud-ref-right.png" alt="" />
+              <img className="hero__cloudRef hero__cloudRef--rightLow" src="/cloud-ref-right-low.png" alt="" />
               <span className="hero__plane" aria-hidden="true">
                 <svg className="hero__airTrail" viewBox="0 0 420 120" preserveAspectRatio="none">
                   <path d="M410 68 C335 66 309 96 247 86 C190 77 182 40 128 49 C91 55 76 84 42 79 C25 77 16 69 5 64" />
@@ -23,6 +22,7 @@ export default function Home() {
                 <img className="hero__planeArt" src="/fcp-plane-realistic.svg" alt="" />
               </span>
             </div>
+            <div className="hero__grassFill" aria-hidden="true"><img src="/fort-grass-left.png" alt="" /></div>
             <div className="hero__art">
               <picture>
                 <source media="(max-width: 900px)" srcSet="/fort-hero-bg-m.png" />

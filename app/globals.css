@@ -523,3 +523,202 @@ h1,h2,h3,h4,h5,h6,.hero__title,.sectionHead h2,.collectionTitle{font-family:var(
   .hero__skyMotion .hero__sun{animation:none!important}
 }
 
+/* ===== V3.4 — EXACT REFERENCE COMPOSITION =====
+   Reference: Screenshot 2026-08-11 at 6.11.04 PM
+   Fort is 76% wide and bottom-right; left grass is a separate filler.
+   Clouds/sun are cropped from the approved reference and used as web layers. */
+.hero.hero--fort{
+  position:relative!important;
+  min-height:560px!important;
+  height:560px!important;
+  overflow:hidden!important;
+  background:linear-gradient(110deg,#b9eaff 0%,#7bd2f3 50%,#4bbdea 100%)!important;
+}
+.hero__scene{
+  position:absolute!important;
+  inset:0!important;
+  overflow:hidden!important;
+}
+.hero__scene::before{display:none!important}
+
+/* Full art is NOT full-width. This was the core composition error. */
+.hero__art{
+  position:absolute!important;
+  z-index:3!important;
+  width:76%!important;
+  max-width:none!important;
+  height:auto!important;
+  left:auto!important;
+  right:0!important;
+  bottom:0!important;
+  margin:0!important;
+  overflow:visible!important;
+}
+.hero__art picture,
+.hero__art picture img,
+.hero__art > img{
+  display:block!important;
+  width:100%!important;
+  max-width:none!important;
+  height:auto!important;
+  object-fit:contain!important;
+  object-position:right bottom!important;
+}
+
+/* Fill ONLY the exposed bottom-left with real grass from the same Fort asset. */
+.hero__grassFill{
+  position:absolute!important;
+  left:0!important;
+  bottom:0!important;
+  width:27%!important;
+  height:72px!important;
+  overflow:hidden!important;
+  z-index:4!important;
+  pointer-events:none!important;
+}
+.hero__grassFill img{
+  position:absolute!important;
+  left:0!important;
+  bottom:0!important;
+  width:100%!important;
+  height:100%!important;
+  object-fit:cover!important;
+  object-position:left bottom!important;
+}
+
+/* Keep eye animation attached to the scaled image. */
+.hero__blink-eye{
+  left:80.85%!important;
+  top:67.55%!important;
+  width:2.05%!important;
+}
+
+/* Reference-matched sky assets */
+.hero__skyMotion{
+  position:absolute!important;
+  inset:0!important;
+  z-index:2!important;
+  overflow:hidden!important;
+  pointer-events:none!important;
+}
+.hero__cloudRef,.hero__sunCloudRef{
+  position:absolute!important;
+  display:block!important;
+  height:auto!important;
+  object-fit:contain!important;
+  pointer-events:none!important;
+}
+.hero__cloudRef--left{
+  width:15.5%!important;
+  left:0!important;
+  top:0!important;
+  opacity:.96!important;
+  animation:fc34CloudLeft 28s ease-in-out infinite alternate!important;
+}
+.hero__cloudRef--mid{
+  width:12%!important;
+  left:39%!important;
+  top:34%!important;
+  opacity:.90!important;
+  animation:fc34CloudMid 31s ease-in-out infinite alternate-reverse!important;
+}
+.hero__sunCloudRef{
+  width:19.3%!important;
+  right:0!important;
+  top:0!important;
+  opacity:.98!important;
+  animation:fc34SunCloud 12s ease-in-out infinite!important;
+}
+.hero__cloudRef--rightLow{
+  width:9.8%!important;
+  right:0!important;
+  top:27%!important;
+  opacity:.88!important;
+  animation:fc34CloudRight 30s ease-in-out infinite alternate!important;
+}
+
+/* Keep the approved plane small and on the reference flight path. */
+.hero__plane{
+  position:absolute!important;
+  width:92px!important;
+  height:46px!important;
+  max-width:92px!important;
+  max-height:46px!important;
+  left:-110px!important;
+  top:31%!important;
+  z-index:5!important;
+  animation:fc34Plane 16s linear infinite!important;
+}
+.hero__planeArt{
+  width:92px!important;
+  height:46px!important;
+  max-width:92px!important;
+  max-height:46px!important;
+}
+.hero__airTrail{
+  width:150px!important;
+  height:46px!important;
+  right:70px!important;
+  top:7px!important;
+}
+
+/* Copy aligns like the approved reference: ~6.4% from left, vertically around center. */
+.hero__overlay-wrap{
+  position:relative!important;
+  z-index:6!important;
+  width:100%!important;
+  max-width:none!important;
+  height:560px!important;
+  min-height:560px!important;
+  margin:0!important;
+  padding:0 5% 0 6.4%!important;
+  display:flex!important;
+  align-items:center!important;
+}
+.hero__copy-card{
+  width:430px!important;
+  max-width:38vw!important;
+  padding:0!important;
+  margin-top:-4px!important;
+}
+.hero__title{
+  max-width:430px!important;
+}
+.hero__eyebrow{display:none!important}
+
+@keyframes fc34Plane{
+  0%{left:-110px;top:31%;transform:rotate(-5deg) scale(.92);opacity:0}
+  7%{opacity:.96}
+  43%{top:18%;transform:rotate(-7deg) scale(1)}
+  78%{top:9%;transform:rotate(-9deg) scale(.97);opacity:.96}
+  95%{opacity:.94}
+  100%{left:calc(100% + 110px);top:2%;transform:rotate(-10deg) scale(.92);opacity:0}
+}
+@keyframes fc34CloudLeft{from{transform:translateX(-3px)}to{transform:translateX(10px) translateY(1px)}}
+@keyframes fc34CloudMid{from{transform:translateX(5px)}to{transform:translateX(-9px) translateY(-1px)}}
+@keyframes fc34CloudRight{from{transform:translateX(4px)}to{transform:translateX(-8px) translateY(1px)}}
+@keyframes fc34SunCloud{0%,100%{transform:translateY(0)}50%{transform:translateY(2px)}}
+
+@media(max-width:1100px){
+  .hero.hero--fort,.hero__overlay-wrap{height:500px!important;min-height:500px!important}
+  .hero__art{width:80%!important}
+  .hero__grassFill{width:24%!important;height:64px!important}
+  .hero__copy-card{width:390px!important;max-width:39vw!important}
+}
+@media(max-width:900px){
+  .hero.hero--fort,.hero__overlay-wrap{height:650px!important;min-height:650px!important}
+  .hero__art{
+    width:820px!important;
+    right:-175px!important;
+    left:auto!important;
+    bottom:0!important;
+  }
+  .hero__grassFill{width:38%!important;height:72px!important}
+  .hero__cloudRef--left{width:24%!important;top:44%!important}
+  .hero__cloudRef--mid{width:18%!important;left:43%!important;top:54%!important}
+  .hero__sunCloudRef{width:27%!important;top:43%!important}
+  .hero__cloudRef--rightLow{display:none!important}
+  .hero__copy-card{width:330px!important;max-width:86vw!important}
+  .hero__overlay-wrap{align-items:flex-start!important;padding-top:38px!important}
+}
+
