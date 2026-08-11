@@ -454,3 +454,113 @@ h1,h2,h3,h4,h5,h6,.hero__title,.sectionHead h2,.collectionTitle{font-family:var(
   .hero__plane{display:none!important}
 }
 
+
+
+/* ===== V3.7 — CLEAN REFERENCE CORRECTION =====
+   V3.6 proved the Fort/text geometry was close. This layer ONLY fixes
+   the visibly wrong sky fragments, continuous grass, and plane visibility. */
+
+.hero__leftGrass{
+  left:0!important;
+  right:0!important;
+  width:100%!important;
+  height:14.8%!important;
+  bottom:0!important;
+  z-index:2!important;
+  overflow:hidden!important;
+  background-image:url("/fort-grass-clean.png")!important;
+  background-repeat:repeat-x!important;
+  background-size:auto 100%!important;
+  background-position:left bottom!important;
+}
+.hero__leftGrass img{display:none!important}
+
+/* Fort must sit above the continuous grass strip. */
+.hero__art{z-index:3!important}
+
+/* Clean, soft clouds — no screenshot rectangles/artifacts. */
+.hero__approvedCloud{
+  filter:none!important;
+  mix-blend-mode:normal!important;
+}
+.hero__approvedCloud--left{
+  width:15.5%!important;
+  left:-2.5%!important;
+  top:-2.5%!important;
+  opacity:.82!important;
+}
+.hero__approvedCloud--mid{
+  width:13.5%!important;
+  left:37.5%!important;
+  top:31%!important;
+  opacity:.58!important;
+}
+.hero__approvedCloud--rightTop{
+  width:18.5%!important;
+  right:-1.5%!important;
+  top:5.5%!important;
+  opacity:.88!important;
+  z-index:2!important;
+}
+.hero__approvedCloud--rightLow{
+  width:12.5%!important;
+  right:3%!important;
+  top:26%!important;
+  opacity:.55!important;
+}
+
+/* Target sun: soft, partly behind upper-right cloud. */
+.hero__approvedSun{
+  width:6.3%!important;
+  right:4.1%!important;
+  top:4.8%!important;
+  z-index:1!important;
+}
+
+/* Keep the approved plane small and make sure it is visibly present during the cycle. */
+.hero__plane{
+  width:86px!important;
+  height:42px!important;
+  max-width:86px!important;
+  max-height:42px!important;
+  z-index:7!important;
+  animation:fc37Plane 13s linear infinite!important;
+  animation-delay:-6.5s!important;
+}
+.hero__planeArt{
+  width:86px!important;
+  height:42px!important;
+  max-width:86px!important;
+  max-height:42px!important;
+}
+.hero__airTrail{
+  width:155px!important;
+  height:44px!important;
+  right:65px!important;
+  top:4px!important;
+}
+@keyframes fc37Plane{
+  0%{left:-100px;top:27%;transform:rotate(-5deg);opacity:.9}
+  20%{top:22%;opacity:1}
+  45%{top:14%;transform:rotate(-7deg);opacity:1}
+  70%{top:8%;transform:rotate(-8deg);opacity:1}
+  100%{left:calc(100% + 100px);top:1%;transform:rotate(-9deg);opacity:.9}
+}
+
+/* Desktop target has a little more breathing room above the Fort roof. */
+@media(min-width:901px){
+  .hero__art{width:79.5%!important}
+}
+
+/* Mobile keeps the existing dedicated layout. */
+@media(max-width:900px){
+  .hero__leftGrass{
+    width:100%!important;
+    height:11%!important;
+    background-size:auto 100%!important;
+  }
+  .hero__approvedCloud--left{width:28%!important;left:-6%!important;top:44%!important}
+  .hero__approvedCloud--mid{width:20%!important;left:42%!important;top:54%!important}
+  .hero__approvedCloud--rightTop{width:28%!important;right:-5%!important;top:45%!important}
+  .hero__approvedCloud--rightLow{display:none!important}
+}

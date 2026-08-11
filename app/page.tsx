@@ -10,11 +10,11 @@ export default function Home() {
         <section className="hero hero--fort">
           <div className="hero__scene" aria-hidden="true">
             <div className="hero__skyMotion">
-              <img className="hero__approvedCloud hero__approvedCloud--left" src="/cloud-approved-left.png" alt="" />
-              <img className="hero__approvedCloud hero__approvedCloud--mid" src="/cloud-approved-mid.png" alt="" />
-              <span className="hero__approvedSun" aria-hidden="true"></span>
-              <img className="hero__approvedCloud hero__approvedCloud--rightTop" src="/cloud-approved-right-top.png" alt="" />
-              <img className="hero__approvedCloud hero__approvedCloud--rightLow" src="/cloud-approved-right-low.png" alt="" />
+              <img className="hero__approvedCloud hero__approvedCloud--left" src="/fcp-cloud-soft.svg" alt="" />
+              <img className="hero__approvedCloud hero__approvedCloud--mid" src="/fcp-cloud-soft.svg" alt="" />
+<span className="hero__approvedSun" aria-hidden="true"></span>
+              <img className="hero__approvedCloud hero__approvedCloud--rightTop" src="/fcp-cloud-soft.svg" alt="" />
+              <img className="hero__approvedCloud hero__approvedCloud--rightLow" src="/fcp-cloud-soft.svg" alt="" />
               <span className="hero__plane" aria-hidden="true">
                 <svg className="hero__airTrail" viewBox="0 0 420 120" preserveAspectRatio="none">
                   <path d="M410 68 C335 66 309 96 247 86 C190 77 182 40 128 49 C91 55 76 84 42 79 C25 77 16 69 5 64" />
