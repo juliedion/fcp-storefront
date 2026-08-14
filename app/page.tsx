@@ -1,8 +1,11 @@
 import Header from "@/components/Header";
 import FindCard from "@/components/FindCard";
-import { categories, finds } from "@/lib/finds";
+import { categories, finds as fallbackFinds } from "@/lib/finds";
+import { getShopifyFinds } from "@/lib/shopify";
 
-export default function Home() {
+export default async function Home() {
+  const shopifyFinds = await getShopifyFinds();
+  const finds = shopifyFinds.length ? shopifyFinds : fallbackFinds;
   return (
     <>
       <Header />

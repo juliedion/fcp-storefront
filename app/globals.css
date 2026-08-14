@@ -1148,3 +1148,6 @@ h1,h2,h3,h4,h5,h6,.hero__title,.sectionHead h2,.collectionTitle{font-family:var(
   }
 }
 
+
+/* Shopify product imagery */
+.findProductImage{width:100%;height:100%;object-fit:contain;display:block;padding:28px;background:transparent}

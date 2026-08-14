@@ -12,6 +12,10 @@ export type Find = {
   badge?: string;
   emoji: string;
   tone: string;
+  imageUrl?: string;
+  imageAlt?: string;
+  ctaText?: string;
+  isAffiliate?: boolean;
 };
 
 export const finds: Find[] = [
