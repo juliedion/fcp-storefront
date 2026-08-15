@@ -28,7 +28,7 @@ export default async function FindPage({ params }: { params: Promise<{ slug: str
             <div className="verdict"><small>THE FCP VERDICT</small><strong>{item.verdict}</strong></div>
             <div className="detailWhyBlock">
               <h2>Why You&apos;ll Love It</h2>
-              <p>{item.whyYoullLoveIt || item.quickTake}</p>
+              <p>{item.whyYoullLoveIt || item.quickTake || "A fun, practical find picked for everyday family life."}</p>
             </div>
             {item.price && <p className="detailPrice">{item.price}</p>}
 

@@ -9,6 +9,7 @@ const PRODUCT_FIELDS = `
   handle
   title
   description
+  descriptionHtml
   productType
   vendor
   tags
@@ -48,6 +49,7 @@ type ShopifyProduct = {
   handle: string;
   title: string;
   description: string;
+  descriptionHtml?: string;
   fullDescription?: string;
   productType?: string;
   vendor?: string;
@@ -97,6 +99,23 @@ async function storefrontFetch<T>(query: string, variables: Record<string, unkno
 }
 
 
+function htmlToReadableText(raw: string) {
+  return (raw || "")
+    .replace(/<br\s*\/?>/gi, "\n")
+    .replace(/<\/p>/gi, "\n")
+    .replace(/<\/li>/gi, "\n")
+    .replace(/<li[^>]*>/gi, "• ")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&nbsp;/gi, " ")
+    .replace(/&amp;/gi, "&")
+    .replace(/&quot;/gi, '"')
+    .replace(/&#39;|&apos;/gi, "'")
+    .replace(/\n[ \t]+/g, "\n")
+    .replace(/[ \t]{2,}/g, " ")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+}
+
 function cleanImportedDescription(raw: string, productTitle: string) {
   let text = (raw || "").replace(/\r/g, "").trim();
 
@@ -145,13 +164,20 @@ function descriptionParts(raw: string, productTitle: string) {
       whyText = cleaned.slice(0, firstLabel).trim();
       detailsText = cleaned.slice(firstLabel).trim();
     } else if (firstLabel === 0) {
-      // No prose before specs: create a readable intro from the first useful spec sentence.
-      const firstLine = cleaned.split(/\n+/).find(Boolean) || "";
-      whyText = firstLine.replace(/^[A-Za-z ]+:\s*/, "").trim();
+      // Supplier copy sometimes contains only specs. Keep every spec in Product Details
+      // and turn the first few useful values into a friendly Why You'll Love It sentence.
+      const values = cleaned
+        .split(/\n+/)
+        .map((line) => line.replace(/^[^:]{2,32}:\s*/, "").trim())
+        .filter(Boolean)
+        .slice(0, 3);
+      whyText = values.length
+        ? `A fun, practical find with ${values.join(", ").replace(/, ([^,]*)$/, " and $1")}.`
+        : "A fun, practical find picked for everyday family life.";
       detailsText = cleaned;
     } else {
       whyText = cleaned;
-      detailsText = "";
+      detailsText = cleaned;
     }
   }
 
@@ -230,7 +256,8 @@ function toFind(p: ShopifyProduct, i = 0): Find {
   const retailer = p.merchant?.value || (affiliate ? source : "Fort Crazypants") || p.vendor || "Fort Crazypants";
   const affiliateUrl = p.affiliateUrl?.value || (affiliate ? p.sourceUrl?.value : "") || "";
   const variant = p.variants?.nodes?.find((v) => v.availableForSale) || p.variants?.nodes?.[0];
-  const description = (p.description || "A crazy-good find worth checking out.").trim();
+  const rawDescription = (p.description || "").trim() || htmlToReadableText(p.descriptionHtml || "");
+  const description = rawDescription || "A crazy-good find worth checking out.";
   const descriptionData = descriptionParts(description, p.title);
   const purchaseMode: Find["purchaseMode"] = affiliate ? "affiliate" : "shopify";
   const available = affiliate ? true : Boolean(p.availableForSale && variant?.availableForSale);

@@ -75,20 +75,10 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Shopify did not return a checkout URL." }, { status: 502 });
     }
 
-    // In a headless setup the public domain points to Vercel. If Shopify returns
-    // that public hostname for /cart/c/..., Vercel would 404 it. Preserve Shopify's
-    // complete checkout path + key, but send it to the shop's myshopify.com host.
-    let safeCheckoutUrl = checkoutUrl;
-    try {
-      const parsed = new URL(checkoutUrl);
-      const shopHost = domain.replace(/^https?:\/\//, "").replace(/\/$/, "");
-      if (parsed.hostname !== shopHost) {
-        parsed.protocol = "https:";
-        parsed.hostname = shopHost;
-        parsed.port = "";
-        safeCheckoutUrl = parsed.toString();
-      }
-    } catch {
+    // Shopify's Cart API returns the complete web-checkout URL, including any
+    // required cart key. Do not rebuild it or swap its hostname.
+    return NextResponse.json({ checkoutUrl });
+  } catch {
       safeCheckoutUrl = checkoutUrl;
     }
 
