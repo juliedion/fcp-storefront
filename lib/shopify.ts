@@ -10,6 +10,7 @@ const PRODUCT_FIELDS = `
   title
   description
   descriptionHtml
+  seo { description }
   productType
   vendor
   tags
@@ -50,6 +51,7 @@ type ShopifyProduct = {
   title: string;
   description: string;
   descriptionHtml?: string;
+  seo?: { description?: string | null } | null;
   fullDescription?: string;
   productType?: string;
   vendor?: string;
@@ -256,9 +258,18 @@ function toFind(p: ShopifyProduct, i = 0): Find {
   const retailer = p.merchant?.value || (affiliate ? source : "Fort Crazypants") || p.vendor || "Fort Crazypants";
   const affiliateUrl = p.affiliateUrl?.value || (affiliate ? p.sourceUrl?.value : "") || "";
   const variant = p.variants?.nodes?.find((v) => v.availableForSale) || p.variants?.nodes?.[0];
-  const rawDescription = (p.description || "").trim() || htmlToReadableText(p.descriptionHtml || "");
+  const rawDescription = (p.description || "").trim()
+    || htmlToReadableText(p.descriptionHtml || "")
+    || (p.seo?.description || "").trim();
   const description = rawDescription || "A crazy-good find worth checking out.";
   const descriptionData = descriptionParts(description, p.title);
+  const genericSummary = "A crazy-good find worth checking out.";
+  const homepageSummary = descriptionData.whyYoullLoveIt === genericSummary
+    ? ((p.seo?.description || "").trim() || descriptionData.fullDescription || description)
+        .replace(/\s+/g, " ")
+        .trim()
+        .slice(0, 190)
+    : descriptionData.whyYoullLoveIt;
   const purchaseMode: Find["purchaseMode"] = affiliate ? "affiliate" : "shopify";
   const available = affiliate ? true : Boolean(p.availableForSale && variant?.availableForSale);
   const defaultCta = affiliate
@@ -276,8 +287,8 @@ function toFind(p: ShopifyProduct, i = 0): Find {
     affiliateUrl,
     price: formatMoney(variant?.price || p.priceRange?.minVariantPrice),
     verdict: p.verdict?.value || "Fort Crazypants approved.",
-    quickTake: descriptionData.whyYoullLoveIt,
-    whyYoullLoveIt: descriptionData.whyYoullLoveIt,
+    quickTake: homepageSummary,
+    whyYoullLoveIt: homepageSummary,
     fullDescription: descriptionData.fullDescription,
     why: [],
     badge: p.badge?.value || (affiliate ? "Crazy Good Find" : zendrop ? "New Find" : undefined),

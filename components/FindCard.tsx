@@ -16,7 +16,7 @@ export default function FindCard({ item }: { item: Find }) {
         <h3><Link href={`/find/${item.slug}`}>{item.title}</Link></h3>
         <div className="cardWhyBlock">
           <span className="cardWhyHeading">Why You&apos;ll Love It</span>
-          <p className="cardDescription">{item.whyYoullLoveIt || item.quickTake}</p>
+          <p className="cardDescription">{item.whyYoullLoveIt || item.quickTake || item.fullDescription || "A fun find worth checking out."}</p>
         </div>
         <div className="cardBottom hybridCardBottom">
           <strong>{item.price || ""}</strong>
