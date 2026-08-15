@@ -3,8 +3,11 @@ import FindCard from "@/components/FindCard";
 import { categories } from "@/lib/finds";
 import { getShopifyFinds, productsForCategory } from "@/lib/shopify";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default async function Home() {
-  const finds = await getShopifyFinds(30);
+  const finds = await getShopifyFinds(100);
   const homeHacks = productsForCategory(finds, "Home Hacks");
   const under25 = productsForCategory(finds, "Under $25");
   const secondaryFinds = homeHacks.length ? homeHacks.slice(0, 2) : finds.slice(4, 6);

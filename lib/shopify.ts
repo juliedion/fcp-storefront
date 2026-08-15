@@ -23,6 +23,7 @@ const PRODUCT_FIELDS = `
   affiliateNetwork: metafield(namespace: "custom", key: "affiliate_network") { value }
   ctaText: metafield(namespace: "custom", key: "cta_text") { value }
   verdict: metafield(namespace: "custom", key: "fcp_verdict") { value }
+  badge: metafield(namespace: "custom", key: "badge") { value }
   isAffiliate: metafield(namespace: "custom", key: "is_affiliate_product") { value }
   merchant: metafield(namespace: "custom", key: "merchant") { value }
   productSource: metafield(namespace: "custom", key: "product_source") { value }
@@ -59,6 +60,7 @@ type ShopifyProduct = {
   affiliateNetwork?: { value: string } | null;
   ctaText?: { value: string } | null;
   verdict?: { value: string } | null;
+  badge?: { value: string } | null;
   isAffiliate?: { value: string } | null;
   merchant?: { value: string } | null;
   productSource?: { value: string } | null;
@@ -75,7 +77,7 @@ async function storefrontFetch<T>(query: string, variables: Record<string, unkno
         "X-Shopify-Storefront-Access-Token": token,
       },
       body: JSON.stringify({ query, variables }),
-      next: { revalidate: 60 },
+      cache: "no-store",
     });
     if (!res.ok) {
       console.error("Shopify Storefront API", res.status, await res.text());
@@ -129,7 +131,8 @@ function isAffiliateProduct(p: ShopifyProduct) {
 function isZendropProduct(p: ShopifyProduct) {
   const source = normalizedSource(p);
   const tags = (p.tags || []).map((tag) => tag.toLowerCase());
-  return source.includes("zendrop") || tags.some((tag) => tag.includes("zendrop"));
+  const vendor = (p.vendor || "").toLowerCase();
+  return source.includes("zendrop") || vendor.includes("zendrop") || tags.some((tag) => tag.includes("zendrop"));
 }
 
 function categoryFor(p: ShopifyProduct) {
@@ -175,7 +178,7 @@ function toFind(p: ShopifyProduct, i = 0): Find {
     verdict: p.verdict?.value || "Fort Crazypants approved.",
     quickTake: description.length > 180 ? `${description.slice(0, 177).trim()}…` : description,
     why: [],
-    badge: p.verdict?.value || (affiliate ? "Crazy Good Find" : zendrop ? "Ships from Fort Crazypants" : undefined),
+    badge: p.badge?.value || (affiliate ? "Crazy Good Find" : zendrop ? "New Find" : undefined),
     emoji: "✨",
     tone: toneFor(i),
     imageUrl: p.featuredImage?.url || undefined,
@@ -191,7 +194,7 @@ function toFind(p: ShopifyProduct, i = 0): Find {
   };
 }
 
-export async function getShopifyFinds(first = 30): Promise<Find[]> {
+export async function getShopifyFinds(first = 100): Promise<Find[]> {
   const data = await storefrontFetch<{ products?: { nodes?: ShopifyProduct[] } }>(PRODUCTS_QUERY, { first });
   return (data?.products?.nodes || []).map((p, i) => toFind(p, i));
 }

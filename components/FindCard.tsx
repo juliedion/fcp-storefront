@@ -9,9 +9,9 @@ export default function FindCard({ item }: { item: Find }) {
     <article className="findCard">
       <Link href={`/find/${item.slug}`} className={`findVisual ${item.tone}`}>
         {item.imageUrl ? <img className="findProductImage" src={item.imageUrl} alt={item.imageAlt || item.title} /> : <span className="findEmoji">{item.emoji}</span>}
-        {item.badge && <span className="badge">{item.badge}</span>}
       </Link>
       <div className="findBody">
+        {item.badge && <div className="findBadgeRow"><span className="badge cardBadge">{item.badge}</span></div>}
         <p className="micro">{item.category} · {affiliate ? item.retailer : item.productSource === "zendrop" ? "Fort Crazypants" : item.retailer}</p>
         <h3><Link href={`/find/${item.slug}`}>{item.title}</Link></h3>
         <p>{item.quickTake}</p>
