@@ -1,15 +1,15 @@
 import { notFound } from "next/navigation";
 import Header from "@/components/Header";
-import { finds, getFind } from "@/lib/finds";
+import BuyNowButton from "@/components/BuyNowButton";
+import { getShopifyFindByHandle } from "@/lib/shopify";
 
-export function generateStaticParams() {
-  return finds.map((item) => ({ slug: item.slug }));
-}
+export const dynamic = "force-dynamic";
 
 export default async function FindPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const item = getFind(slug);
+  const item = await getShopifyFindByHandle(slug);
   if (!item) notFound();
+  const affiliate = item.purchaseMode === "affiliate" || item.isAffiliate;
 
   return (
     <>
@@ -18,19 +18,28 @@ export default async function FindPage({ params }: { params: Promise<{ slug: str
         <a href="/" className="backLink">← Back to all Finds</a>
         <section className="findDetail">
           <div className={`detailVisual ${item.tone}`}>
-            <span>{item.emoji}</span>
+            {item.imageUrl ? <img className="detailProductImage" src={item.imageUrl} alt={item.imageAlt || item.title} /> : <span>{item.emoji}</span>}
             {item.badge && <b>{item.badge}</b>}
           </div>
           <div className="detailCopy">
-            <p className="kicker">{item.category} · {item.retailer}</p>
+            <p className="kicker">{item.category} · {affiliate ? item.retailer : "Fort Crazypants"}</p>
             <h1>{item.title}</h1>
             <p className="eyebrow">{item.eyebrow}</p>
             <div className="verdict"><small>THE FCP VERDICT</small><strong>{item.verdict}</strong></div>
             <p className="detailLead">{item.quickTake}</p>
-            <h2>Why we picked it</h2>
-            <ul>{item.why.map((reason) => <li key={reason}>✓ {reason}</li>)}</ul>
-            <a href={item.affiliateUrl} rel="sponsored nofollow" className="primaryBtn retailerBtn">Check price at {item.retailer} →</a>
-            <p className="tinyDisclosure">Affiliate link: we may earn a commission if you buy through this link, at no extra cost to you.</p>
+            {item.price && <p className="detailPrice">{item.price}</p>}
+
+            {affiliate ? (
+              <>
+                <a href={item.affiliateUrl} target="_blank" rel="sponsored nofollow noopener" className="primaryBtn retailerBtn">{item.ctaText || `Buy on ${item.retailer}`} →</a>
+                <p className="tinyDisclosure">Affiliate link: we may earn a commission if you buy through this link, at no extra cost to you.</p>
+              </>
+            ) : (
+              <>
+                <BuyNowButton variantId={item.variantId} label={item.ctaText || "Buy Now"} disabled={!item.availableForSale} />
+                <p className="tinyDisclosure">Secure checkout powered by Shopify. Fulfillment may be handled by Fort Crazypants or one of our fulfillment partners.</p>
+              </>
+            )}
           </div>
         </section>
       </main>

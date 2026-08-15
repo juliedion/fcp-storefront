@@ -1,11 +1,13 @@
 import Header from "@/components/Header";
 import FindCard from "@/components/FindCard";
-import { categories, finds as fallbackFinds } from "@/lib/finds";
-import { getShopifyFinds } from "@/lib/shopify";
+import { categories } from "@/lib/finds";
+import { getShopifyFinds, productsForCategory } from "@/lib/shopify";
 
 export default async function Home() {
-  const shopifyFinds = await getShopifyFinds();
-  const finds = shopifyFinds.length ? shopifyFinds : fallbackFinds;
+  const finds = await getShopifyFinds(30);
+  const homeHacks = productsForCategory(finds, "Home Hacks");
+  const under25 = productsForCategory(finds, "Under $25");
+  const secondaryFinds = homeHacks.length ? homeHacks.slice(0, 2) : finds.slice(4, 6);
   return (
     <>
       <Header />
@@ -75,13 +77,13 @@ export default async function Home() {
         <section className="section twoCol">
           <div>
             <div className="sectionHead compact"><div><p className="kicker">HOUSEHOLD CHAOS</p><h2>Why didn't I think of that?</h2></div></div>
-            <div className="miniGrid">{finds.slice(4,6).map((item) => <FindCard key={item.slug} item={item} />)}</div>
+            <div className="miniGrid">{secondaryFinds.map((item) => <FindCard key={item.slug} item={item} />)}</div>
           </div>
           <aside className="under25">
             <p className="kicker light">DANGEROUSLY EASY TO JUSTIFY</p>
             <div className="priceMark">UNDER<br/><strong>$25</strong></div>
             <p>The little finds that somehow end up in the cart because, technically, they solve a problem.</p>
-            <a className="creamBtn" href="#finds">Show me →</a>
+            <a className="creamBtn" href="#finds">{under25.length ? `${under25.length} finds under $25 →` : "Show me →"}</a>
           </aside>
         </section>
 
