@@ -48,6 +48,7 @@ type ShopifyProduct = {
   handle: string;
   title: string;
   description: string;
+  fullDescription?: string;
   productType?: string;
   vendor?: string;
   tags?: string[];

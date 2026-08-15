@@ -2,40 +2,56 @@
 
 import { useState } from "react";
 
-export default function BuyNowButton({ variantId, label = "Buy Now", disabled = false, className = "primaryBtn retailerBtn" }: {
-  variantId?: string;
-  label?: string;
+export default function BuyNowButton({
+  variantId,
+  disabled = false,
+  label = "Buy Now",
+}: {
+  variantId: string;
   disabled?: boolean;
-  className?: string;
+  label?: string;
 }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  async function checkout() {
-    if (!variantId || disabled || loading) return;
+  async function buyNow() {
+    if (disabled || loading) return;
+
     setLoading(true);
     setError("");
+
     try {
-      const res = await fetch("/api/cart", {
+      const response = await fetch("/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ variantId, quantity: 1 }),
       });
-      const data = await res.json();
-      if (!res.ok || !data.checkoutUrl) throw new Error(data.error || "Unable to start checkout");
-      window.location.href = data.checkoutUrl;
-    } catch (e) {
-      setError(e instanceof Error ? e.message : "Unable to start checkout");
+
+      const data = await response.json();
+
+      if (!response.ok || !data.checkoutUrl) {
+        throw new Error(data.error || "Checkout could not be started.");
+      }
+
+      window.location.assign(data.checkoutUrl);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Checkout could not be started.");
       setLoading(false);
     }
   }
 
   return (
-    <div>
-      <button type="button" className={className} onClick={checkout} disabled={disabled || loading || !variantId}>
-        {loading ? "Opening checkout…" : disabled ? "Sold Out" : label}
+    <div className="buyNowWrap">
+      <button
+        type="button"
+        className="btn btn--pink buyNowButton"
+        onClick={buyNow}
+        disabled={disabled || loading}
+        aria-busy={loading}
+      >
+        {disabled ? "Currently unavailable" : loading ? "Opening checkout…" : label}
       </button>
-      {error && <p className="tinyDisclosure" role="alert">{error}</p>}
+      {error && <p className="buyNowError" role="alert">{error}</p>}
     </div>
   );
 }
