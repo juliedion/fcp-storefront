@@ -1356,3 +1356,114 @@ h1,h2,h3,h4,h5,h6,.hero__title,.sectionHead h2,.collectionTitle{font-family:var(
   }
 }
 
+/* ===== V5.5 — readable product titles, structured descriptions, checkout host fix ===== */
+
+/* Product titles: intentionally much smaller and easier to scan. */
+.detailCopy h1,
+.detailCopy .sectionTitle{
+  font-size:clamp(28px,3.1vw,42px)!important;
+  line-height:1.08!important;
+  letter-spacing:0!important;
+  max-width:650px!important;
+  text-wrap:balance!important;
+  overflow-wrap:break-word!important;
+  margin:0 0 14px!important;
+}
+
+/* Keep the FCP verdict, but make it supportive rather than dominant. */
+.verdict{
+  margin:20px 0!important;
+  padding:7px 0 7px 14px!important;
+  border-left-width:4px!important;
+}
+.verdict small{
+  font-size:10px!important;
+  letter-spacing:1.3px!important;
+}
+.verdict strong{
+  font-size:20px!important;
+  line-height:1.25!important;
+}
+
+/* Proper Why You'll Love It structure on detail pages. */
+.detailWhyBlock{
+  margin:22px 0 18px!important;
+  max-width:680px!important;
+}
+.detailWhyBlock h2{
+  margin:0 0 8px!important;
+  font-family:inherit!important;
+  font-size:13px!important;
+  line-height:1.2!important;
+  letter-spacing:.08em!important;
+  text-transform:uppercase!important;
+  color:var(--deep)!important;
+}
+.detailWhyBlock p{
+  margin:0!important;
+  font-size:16px!important;
+  line-height:1.65!important;
+  color:#445654!important;
+}
+
+/* Full Zendrop/supplier details are readable instead of one concatenated block. */
+.fullProductDescription{
+  margin-top:30px!important;
+  padding-top:24px!important;
+  border-top:1px solid rgba(2,79,83,.14)!important;
+  max-width:720px!important;
+}
+.fullProductDescription h2{
+  margin:0 0 14px!important;
+  font-size:20px!important;
+  line-height:1.2!important;
+  letter-spacing:0!important;
+}
+.fullProductDescription__copy p{
+  margin:0 0 10px!important;
+  font-size:14.5px!important;
+  line-height:1.55!important;
+}
+.productSpecLine strong{
+  color:var(--deep)!important;
+}
+
+/* Cards: heading gets its own line, never jammed into the description. */
+.cardWhyBlock{
+  margin-top:4px!important;
+  min-height:82px!important;
+}
+.cardWhyHeading{
+  display:block!important;
+  margin:0 0 5px!important;
+  font-size:10px!important;
+  line-height:1.2!important;
+  font-weight:900!important;
+  letter-spacing:.08em!important;
+  text-transform:uppercase!important;
+  color:#63736f!important;
+}
+.cardDescription{
+  margin:0!important;
+  min-height:58px!important;
+  display:-webkit-box!important;
+  -webkit-box-orient:vertical!important;
+  -webkit-line-clamp:3!important;
+  overflow:hidden!important;
+  color:#64716f!important;
+  line-height:1.45!important;
+}
+
+/* Override older generic paragraph min-height rule for the structured card copy. */
+.findBody > .cardWhyBlock{
+  min-height:82px!important;
+}
+
+@media(max-width:900px){
+  .detailCopy h1,
+  .detailCopy .sectionTitle{
+    font-size:clamp(27px,7vw,36px)!important;
+    line-height:1.1!important;
+  }
+}
+

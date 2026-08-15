@@ -8,6 +8,8 @@ export type Find = {
   price?: string;
   verdict: string;
   quickTake: string;
+  whyYoullLoveIt?: string;
+  fullDescription?: string;
   why: string[];
   badge?: string;
   emoji: string;

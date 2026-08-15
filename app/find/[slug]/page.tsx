@@ -26,7 +26,10 @@ export default async function FindPage({ params }: { params: Promise<{ slug: str
             <h1>{item.title}</h1>
             <p className="eyebrow">{item.eyebrow}</p>
             <div className="verdict"><small>THE FCP VERDICT</small><strong>{item.verdict}</strong></div>
-            <p className="detailLead">{item.quickTake}</p>
+            <div className="detailWhyBlock">
+              <h2>Why You&apos;ll Love It</h2>
+              <p>{item.whyYoullLoveIt || item.quickTake}</p>
+            </div>
             {item.price && <p className="detailPrice">{item.price}</p>}
 
             {affiliate ? (
@@ -39,6 +42,22 @@ export default async function FindPage({ params }: { params: Promise<{ slug: str
                 <BuyNowButton variantId={item.variantId || ""} label={item.ctaText || "Buy Now"} disabled={!item.availableForSale || !item.variantId} />
                 <p className="tinyDisclosure">Secure checkout powered by Shopify. Fulfillment may be handled by Fort Crazypants or one of our fulfillment partners.</p>
               </>
+            )}
+
+            {item.fullDescription && item.fullDescription !== item.whyYoullLoveIt && (
+              <section className="fullProductDescription">
+                <h2>Product Details</h2>
+                <div className="fullProductDescription__copy">
+                  {item.fullDescription.split(/\n+/).filter(Boolean).map((line, index) => {
+                    const match = line.match(/^([^:]{2,32}):\s*(.*)$/);
+                    return match ? (
+                      <p key={index} className="productSpecLine"><strong>{match[1]}:</strong> {match[2]}</p>
+                    ) : (
+                      <p key={index}>{line}</p>
+                    );
+                  })}
+                </div>
+              </section>
             )}
           </div>
         </section>

@@ -96,6 +96,77 @@ async function storefrontFetch<T>(query: string, variables: Record<string, unkno
   }
 }
 
+
+function cleanImportedDescription(raw: string, productTitle: string) {
+  let text = (raw || "").replace(/\r/g, "").trim();
+
+  // Remove importer-style leading "Product Name: ..." field.
+  text = text.replace(
+    /^Product Name:\s*.*?(?=(?:Package Contents|Contents|Design|Colors?|Dimensions|Material|Age Range|Why You(?:'|’)?ll Love It)\s*:?\s*)/i,
+    ""
+  );
+
+  // If the exact Shopify title follows Product Name, remove that cleanly too.
+  const escapedTitle = productTitle.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  text = text.replace(new RegExp(`^Product Name:\\s*${escapedTitle}\\s*`, "i"), "");
+
+  // Put common supplier/importer labels on their own lines.
+  const labels = [
+    "Package Contents", "Contents", "Design", "Colors", "Color",
+    "Dimensions", "Material", "Age Range", "Size", "Style", "Features"
+  ];
+  for (const label of labels) {
+    text = text.replace(new RegExp(`\\s*(${label}:)\\s*`, "gi"), "\n$1 ");
+  }
+
+  // Fix concatenated Why You'll Love It headings.
+  text = text.replace(/Why You(?:'|’)?ll Love It\s*:?\s*/gi, "Why You'll Love It\n");
+
+  return text.replace(/\n{3,}/g, "\n\n").trim();
+}
+
+function descriptionParts(raw: string, productTitle: string) {
+  const cleaned = cleanImportedDescription(raw, productTitle);
+  const marker = "Why You'll Love It";
+  const markerIndex = cleaned.toLowerCase().indexOf(marker.toLowerCase());
+
+  let whyText = "";
+  let detailsText = cleaned;
+
+  if (markerIndex >= 0) {
+    const after = cleaned.slice(markerIndex + marker.length).replace(/^[\s:–—-]+/, "").trim();
+    const firstLabel = after.search(/\n(?:Package Contents|Contents|Design|Colors?|Dimensions|Material|Age Range|Size|Style|Features):/i);
+    whyText = firstLabel >= 0 ? after.slice(0, firstLabel).trim() : after.trim();
+    detailsText = firstLabel >= 0 ? after.slice(firstLabel).trim() : "";
+  } else {
+    // For Zendrop/supplier descriptions, use the opening prose as the friendly summary.
+    const firstLabel = cleaned.search(/(?:^|\n)(?:Package Contents|Contents|Design|Colors?|Dimensions|Material|Age Range|Size|Style|Features):/i);
+    if (firstLabel > 0) {
+      whyText = cleaned.slice(0, firstLabel).trim();
+      detailsText = cleaned.slice(firstLabel).trim();
+    } else if (firstLabel === 0) {
+      // No prose before specs: create a readable intro from the first useful spec sentence.
+      const firstLine = cleaned.split(/\n+/).find(Boolean) || "";
+      whyText = firstLine.replace(/^[A-Za-z ]+:\s*/, "").trim();
+      detailsText = cleaned;
+    } else {
+      whyText = cleaned;
+      detailsText = "";
+    }
+  }
+
+  // Keep card/detail intro concise without chopping words.
+  const compactWhy = whyText.replace(/\s+/g, " ").trim();
+  const cardWhy = compactWhy.length > 190
+    ? `${compactWhy.slice(0, 187).replace(/\s+\S*$/, "").trim()}…`
+    : compactWhy;
+
+  return {
+    whyYoullLoveIt: cardWhy || "A crazy-good find worth checking out.",
+    fullDescription: detailsText || cleaned,
+  };
+}
+
 function formatMoney(v?: Money) {
   if (!v || Number(v.amount) <= 0) return "";
   try {
@@ -160,6 +231,7 @@ function toFind(p: ShopifyProduct, i = 0): Find {
   const affiliateUrl = p.affiliateUrl?.value || (affiliate ? p.sourceUrl?.value : "") || "";
   const variant = p.variants?.nodes?.find((v) => v.availableForSale) || p.variants?.nodes?.[0];
   const description = (p.description || "A crazy-good find worth checking out.").trim();
+  const descriptionData = descriptionParts(description, p.title);
   const purchaseMode: Find["purchaseMode"] = affiliate ? "affiliate" : "shopify";
   const available = affiliate ? true : Boolean(p.availableForSale && variant?.availableForSale);
   const defaultCta = affiliate
@@ -177,7 +249,9 @@ function toFind(p: ShopifyProduct, i = 0): Find {
     affiliateUrl,
     price: formatMoney(variant?.price || p.priceRange?.minVariantPrice),
     verdict: p.verdict?.value || "Fort Crazypants approved.",
-    quickTake: description.length > 180 ? `${description.slice(0, 177).trim()}…` : description,
+    quickTake: descriptionData.whyYoullLoveIt,
+    whyYoullLoveIt: descriptionData.whyYoullLoveIt,
+    fullDescription: descriptionData.fullDescription,
     why: [],
     badge: p.badge?.value || (affiliate ? "Crazy Good Find" : zendrop ? "New Find" : undefined),
     emoji: "✨",

@@ -14,7 +14,10 @@ export default function FindCard({ item }: { item: Find }) {
         {item.badge && <div className="findBadgeRow"><span className="badge cardBadge">{item.badge}</span></div>}
         <p className="micro">{item.category} · {affiliate ? item.retailer : item.productSource === "zendrop" ? "Fort Crazypants" : item.retailer}</p>
         <h3><Link href={`/find/${item.slug}`}>{item.title}</Link></h3>
-        <p>{item.quickTake}</p>
+        <div className="cardWhyBlock">
+          <span className="cardWhyHeading">Why You&apos;ll Love It</span>
+          <p className="cardDescription">{item.whyYoullLoveIt || item.quickTake}</p>
+        </div>
         <div className="cardBottom hybridCardBottom">
           <strong>{item.price || ""}</strong>
           {external ? (
