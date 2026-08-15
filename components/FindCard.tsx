@@ -20,7 +20,7 @@ export default function FindCard({ item }: { item: Find }) {
           {external ? (
             <a href={item.affiliateUrl} target="_blank" rel="sponsored nofollow noopener" className="textLink">{item.ctaText || `Buy on ${item.retailer}`} →</a>
           ) : item.purchaseMode === "shopify" ? (
-            <BuyNowButton variantId={item.variantId} label={item.ctaText || "Buy Now"} disabled={!item.availableForSale} className="cardBuyButton" />
+            <BuyNowButton variantId={item.variantId || ""} label={item.ctaText || "Buy Now"} disabled={!item.availableForSale || !item.variantId} className="cardBuyButton" />
           ) : (
             <Link href={`/find/${item.slug}`} className="textLink">See the Find →</Link>
           )}

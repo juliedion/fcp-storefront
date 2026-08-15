@@ -6,10 +6,12 @@ export default function BuyNowButton({
   variantId,
   disabled = false,
   label = "Buy Now",
+  className = "",
 }: {
   variantId: string;
   disabled?: boolean;
   label?: string;
+  className?: string;
 }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -44,7 +46,7 @@ export default function BuyNowButton({
     <div className="buyNowWrap">
       <button
         type="button"
-        className="btn btn--pink buyNowButton"
+        className={`btn btn--pink buyNowButton ${className}`.trim()}
         onClick={buyNow}
         disabled={disabled || loading || !variantId}
         aria-busy={loading}
