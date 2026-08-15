@@ -264,12 +264,19 @@ function toFind(p: ShopifyProduct, i = 0): Find {
   const description = rawDescription || "A crazy-good find worth checking out.";
   const descriptionData = descriptionParts(description, p.title);
   const genericSummary = "A crazy-good find worth checking out.";
-  const homepageSummary = descriptionData.whyYoullLoveIt === genericSummary
-    ? ((p.seo?.description || "").trim() || descriptionData.fullDescription || description)
-        .replace(/\s+/g, " ")
-        .trim()
-        .slice(0, 190)
-    : descriptionData.whyYoullLoveIt;
+  const realDescription = cleanImportedDescription(description, p.title)
+    .replace(/Why You(?:'|’)?ll Love It\s*/gi, "")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  const homepageSummarySource =
+    descriptionData.whyYoullLoveIt !== genericSummary
+      ? descriptionData.whyYoullLoveIt
+      : ((p.seo?.description || "").trim() || realDescription || descriptionData.fullDescription || description);
+
+  const homepageSummary = homepageSummarySource.length > 190
+    ? `${homepageSummarySource.slice(0, 187).replace(/\s+\S*$/, "").trim()}…`
+    : homepageSummarySource;
   const purchaseMode: Find["purchaseMode"] = affiliate ? "affiliate" : "shopify";
   const available = affiliate ? true : Boolean(p.availableForSale && variant?.availableForSale);
   const defaultCta = affiliate
