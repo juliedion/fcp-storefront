@@ -63,6 +63,7 @@ export async function POST(request: Request) {
     }
 
     const result = payload.data?.cartCreate;
+
     if (result?.userErrors?.length) {
       return NextResponse.json(
         { error: result.userErrors.map((e: { message: string }) => e.message).join(" ") },
@@ -71,19 +72,19 @@ export async function POST(request: Request) {
     }
 
     const checkoutUrl = result?.cart?.checkoutUrl;
+
     if (!checkoutUrl) {
-      return NextResponse.json({ error: "Shopify did not return a checkout URL." }, { status: 502 });
+      return NextResponse.json(
+        { error: "Shopify did not return a checkout URL." },
+        { status: 502 }
+      );
     }
 
-    // Shopify's Cart API returns the complete web-checkout URL, including any
-    // required cart key. Do not rebuild it or swap its hostname.
     return NextResponse.json({ checkoutUrl });
   } catch {
-      safeCheckoutUrl = checkoutUrl;
-    }
-
-    return NextResponse.json({ checkoutUrl: safeCheckoutUrl });
-  } catch {
-    return NextResponse.json({ error: "Checkout could not be started." }, { status: 500 });
+    return NextResponse.json(
+      { error: "Checkout could not be started." },
+      { status: 500 }
+    );
   }
 }
