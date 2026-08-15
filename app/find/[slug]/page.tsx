@@ -36,7 +36,7 @@ export default async function FindPage({ params }: { params: Promise<{ slug: str
               </>
             ) : (
               <>
-                <BuyNowButton variantId={item.variantId} label={item.ctaText || "Buy Now"} disabled={!item.availableForSale} />
+                <BuyNowButton variantId={item.variantId || ""} label={item.ctaText || "Buy Now"} disabled={!item.availableForSale || !item.variantId} />
                 <p className="tinyDisclosure">Secure checkout powered by Shopify. Fulfillment may be handled by Fort Crazypants or one of our fulfillment partners.</p>
               </>
             )}

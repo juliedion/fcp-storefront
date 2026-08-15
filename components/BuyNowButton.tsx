@@ -15,7 +15,7 @@ export default function BuyNowButton({
   const [error, setError] = useState("");
 
   async function buyNow() {
-    if (disabled || loading) return;
+    if (disabled || loading || !variantId) return;
 
     setLoading(true);
     setError("");
@@ -46,10 +46,10 @@ export default function BuyNowButton({
         type="button"
         className="btn btn--pink buyNowButton"
         onClick={buyNow}
-        disabled={disabled || loading}
+        disabled={disabled || loading || !variantId}
         aria-busy={loading}
       >
-        {disabled ? "Currently unavailable" : loading ? "Opening checkout…" : label}
+        {disabled || !variantId ? "Currently unavailable" : loading ? "Opening checkout…" : label}
       </button>
       {error && <p className="buyNowError" role="alert">{error}</p>}
     </div>
