@@ -38,7 +38,7 @@ export async function POST(request: Request) {
     // Shopify documents this permalink format for sending a buyer directly
     // to a preloaded cart/checkout. Because the URL uses SHOPIFY_STORE_DOMAIN
     // directly, the headless/Vercel domain can never intercept it.
-    const checkoutUrl = `https://${shopDomain}/cart/${numericVariantId}:${qty}`;
+    const checkoutUrl = `https://checkout.fortcrazypants.com/cart/${numericVariantId}:${qty}`;
 
     return NextResponse.json({ checkoutUrl });
   } catch {
