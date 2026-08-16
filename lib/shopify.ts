@@ -217,6 +217,70 @@ function zendropHomepageSummary(raw: string, productTitle: string) {
   return summary;
 }
 
+
+function directShopifyHomepageSummary(raw: string, productTitle: string) {
+  let text = htmlToReadableText(raw || "").replace(/\r/g, " ").trim();
+  if (!text) return "";
+
+  // Remove only the imported Product Name field/title.
+  const escapedTitle = productTitle.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  text = text.replace(new RegExp(`^Product Name:\\s*${escapedTitle}`, "i"), "");
+  text = text.replace(/^Product Name:\s*/i, "");
+
+  // Zendrop often concatenates labels and selling sentences with no whitespace.
+  // Add boundaries before both spec labels and common benefit phrases.
+  const boundaries = [
+    "Package Contents:", "Contents:", "Design:", "Colors:", "Color:",
+    "Dimensions:", "Material:", "Age Range:", "Size:", "Style:", "Features:",
+    "Suitable for", "Ideal for", "Perfect for", "Great for",
+    "Designed for", "Made for", "Versatile for"
+  ];
+
+  for (const boundary of boundaries) {
+    text = text.replace(new RegExp(`(${boundary})`, "gi"), "\n$1");
+  }
+
+  const lines = text
+    .split(/\n+/)
+    .map((line) => line.replace(/\s+/g, " ").trim())
+    .filter(Boolean);
+
+  // Prefer actual selling/benefit sentences from the Shopify description.
+  const benefits = lines.filter((line) =>
+    /^(Suitable for|Ideal for|Perfect for|Great for|Designed for|Made for|Versatile for)/i.test(line)
+  );
+
+  let summary = benefits.join(" ");
+
+  // If there are no explicit benefit phrases, use useful descriptive fields.
+  if (!summary) {
+    const useful = lines
+      .filter((line) => /^(Design|Colors?|Material|Features):/i.test(line))
+      .map((line) => line.replace(/^[^:]+:\s*/, ""))
+      .filter(Boolean);
+
+    if (useful.length) {
+      summary = `A fun, practical find featuring ${useful.slice(0, 3).join(", ").replace(/, ([^,]*)$/, " and $1")}.`;
+    }
+  }
+
+  // Last resort: use the real description itself, not generic filler.
+  if (!summary) {
+    summary = lines.join(" ");
+  }
+
+  summary = summary
+    .replace(/\s+/g, " ")
+    .replace(/\s+([,.!?])/g, "$1")
+    .trim();
+
+  if (summary.length > 190) {
+    summary = `${summary.slice(0, 187).replace(/\s+\S*$/, "").trim()}…`;
+  }
+
+  return summary;
+}
+
 function descriptionParts(raw: string, productTitle: string) {
   const cleaned = cleanImportedDescription(raw, productTitle);
   const marker = "Why You'll Love It";
@@ -340,12 +404,14 @@ function toFind(p: ShopifyProduct, i = 0): Find {
     .replace(/\s+/g, " ")
     .trim();
 
-  const zendropSummary = zendrop
-    ? zendropHomepageSummary(rawDescription || description, p.title)
+  // Every native Shopify product (including Zendrop) should use the real Shopify
+  // product description directly. Do not depend on vendor/tag/source detection.
+  const nativeShopifySummary = !affiliate
+    ? directShopifyHomepageSummary(rawDescription || description, p.title)
     : "";
 
   const homepageSummarySource =
-    zendropSummary ||
+    nativeShopifySummary ||
     (descriptionData.whyYoullLoveIt !== genericSummary
       ? descriptionData.whyYoullLoveIt
       : ((p.seo?.description || "").trim() || realDescription || descriptionData.fullDescription || description));
