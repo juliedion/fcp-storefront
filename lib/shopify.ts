@@ -146,6 +146,77 @@ function cleanImportedDescription(raw: string, productTitle: string) {
   return text.replace(/\n{3,}/g, "\n\n").trim();
 }
 
+
+function zendropHomepageSummary(raw: string, productTitle: string) {
+  let text = htmlToReadableText(raw || "").replace(/\r/g, " ").trim();
+  if (!text) return "";
+
+  // Zendrop frequently concatenates importer labels with no spaces:
+  // "...SetPackage Contents: ...Design: ...Colors: ..."
+  const labels = [
+    "Package Contents", "Contents", "Design", "Colors", "Color",
+    "Dimensions", "Material", "Age Range", "Size", "Style", "Features"
+  ];
+
+  for (const label of labels) {
+    text = text.replace(new RegExp(`(${label}:)`, "gi"), "\n$1 ");
+  }
+
+  // Remove only the importer Product Name field.
+  if (/^Product Name:/i.test(text)) {
+    const firstLabelPos = labels
+      .map((label) => text.toLowerCase().indexOf(`\n${label.toLowerCase()}:`))
+      .filter((pos) => pos > 0)
+      .sort((a, b) => a - b)[0];
+
+    if (typeof firstLabelPos === "number") {
+      text = text.slice(firstLabelPos + 1);
+    } else {
+      const escapedTitle = productTitle.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      text = text.replace(new RegExp(`^Product Name:\\s*${escapedTitle}\\s*`, "i"), "");
+    }
+  }
+
+  const lines = text.split(/\n+/).map((line) => line.trim()).filter(Boolean);
+
+  const valueFor = (name: string) => {
+    const line = lines.find((l) => l.toLowerCase().startsWith(`${name.toLowerCase()}:`));
+    return line ? line.slice(line.indexOf(":") + 1).trim() : "";
+  };
+
+  const design = valueFor("Design");
+  const colors = valueFor("Colors") || valueFor("Color");
+  const material = valueFor("Material");
+
+  // Any non-label prose is usually Zendrop's useful selling sentence.
+  const prose = lines
+    .filter((line) => !/^(Package Contents|Contents|Design|Colors?|Dimensions|Material|Age Range|Size|Style|Features):/i.test(line))
+    .join(" ")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  let summary = prose;
+
+  if (!summary) {
+    const details = [design, colors, material].filter(Boolean);
+    if (details.length) {
+      summary = `A fun, practical find featuring ${details.join(", ").replace(/, ([^,]*)$/, " and $1")}.`;
+    }
+  }
+
+  if (!summary) {
+    summary = `${productTitle} is a fun, practical Fort Crazypants find picked for everyday family life.`;
+  }
+
+  summary = summary.replace(/\s+/g, " ").trim();
+
+  if (summary.length > 190) {
+    summary = `${summary.slice(0, 187).replace(/\s+\S*$/, "").trim()}…`;
+  }
+
+  return summary;
+}
+
 function descriptionParts(raw: string, productTitle: string) {
   const cleaned = cleanImportedDescription(raw, productTitle);
   const marker = "Why You'll Love It";
@@ -269,10 +340,15 @@ function toFind(p: ShopifyProduct, i = 0): Find {
     .replace(/\s+/g, " ")
     .trim();
 
+  const zendropSummary = zendrop
+    ? zendropHomepageSummary(rawDescription || description, p.title)
+    : "";
+
   const homepageSummarySource =
-    descriptionData.whyYoullLoveIt !== genericSummary
+    zendropSummary ||
+    (descriptionData.whyYoullLoveIt !== genericSummary
       ? descriptionData.whyYoullLoveIt
-      : ((p.seo?.description || "").trim() || realDescription || descriptionData.fullDescription || description);
+      : ((p.seo?.description || "").trim() || realDescription || descriptionData.fullDescription || description));
 
   const homepageSummary = homepageSummarySource.length > 190
     ? `${homepageSummarySource.slice(0, 187).replace(/\s+\S*$/, "").trim()}…`

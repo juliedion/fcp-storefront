@@ -40,13 +40,13 @@ export default function FindCard({ item }: { item: Find }) {
 
     text = text
       .replace(/^Why You(?:'|’)?ll Love It\\s*:?\\s*/i, "")
-      .replace(/\\s*(Package Contents:|Contents:|Design:|Colors:|Color:|Dimensions:|Material:|Age Range:|Size:|Style:|Features:)\\s*/gi, " • $1 ")
-      .replace(/\\s+/g, " ")
-      .replace(/^\\s*[•·-]\\s*/, "")
+      .replace(/\s*(Package Contents:|Contents:|Design:|Colors:|Color:|Dimensions:|Material:|Age Range:|Size:|Style:|Features:)\s*/gi, " • $1 ")
+      .replace(/\s+/g, " ")
+      .replace(/^\s*[•·-]\s*/, "")
       .trim();
 
     if (text.length > 190) {
-      text = `${text.slice(0, 187).replace(/\\s+\\S*$/, "").trim()}…`;
+      text = `${text.slice(0, 187).replace(/\s+\S*$/, "").trim()}…`;
     }
 
     return text;

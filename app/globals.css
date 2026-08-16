@@ -1690,3 +1690,22 @@ h1,h2,h3,h4,h5,h6,.hero__title,.sectionHead h2,.collectionTitle{font-family:var(
   }
 }
 
+
+
+/* ===== V5.13 — Zendrop homepage description visibility ===== */
+.findCard .cardWhyBlock{
+  display:block!important;
+  min-height:88px!important;
+}
+.findCard .cardDescription{
+  display:-webkit-box!important;
+  visibility:visible!important;
+  opacity:1!important;
+  min-height:62px!important;
+  color:#5f6f6c!important;
+  font-size:14px!important;
+  line-height:1.5!important;
+  -webkit-line-clamp:3!important;
+  -webkit-box-orient:vertical!important;
+  overflow:hidden!important;
+}
