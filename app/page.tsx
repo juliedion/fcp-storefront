@@ -15,6 +15,23 @@ export default async function Home() {
     <>
       <Header />
       <main>
+        <style>{`
+          /* A legacy decorative .sun rule was colliding with product cards whose tone is "sun".
+             Keep product visuals in normal card flow on every viewport. */
+          .findVisual.sun {
+            position: relative !important;
+            width: 100% !important;
+            height: auto !important;
+            right: auto !important;
+            left: auto !important;
+            top: auto !important;
+            bottom: auto !important;
+            border-radius: 0 !important;
+            box-shadow: none !important;
+            aspect-ratio: 1 / 1 !important;
+            background: #fff !important;
+          }
+        `}</style>
         <section className="hero hero--fort">
           <div className="hero__scene" aria-hidden="true">
             <div className="hero__skyMotion">
