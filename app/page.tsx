@@ -33,7 +33,7 @@ export default async function Home() {
             <div className="hero__leftGrass" aria-hidden="true"><img src="/fort-grass-clean.png" alt="" /></div>
             <div className="hero__art">
               <picture>
-                <source media="(max-width: 900px)" srcSet="/fort-hero-bg-m.png" />
+                <source media="(max-width: 900px)" srcSet="/fort-hero-bg-clean-v43.png" />
                 <img src="/fort-hero-bg-clean-v43.png" alt="" width="1800" height="654" />
               </picture>
               <span className="hero__blink-eye" aria-hidden="true"></span>
