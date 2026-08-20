@@ -20,7 +20,6 @@ export default async function Home() {
             <div className="hero__skyMotion">
               <img className="hero__approvedCloud hero__approvedCloud--left" src="/fcp-cloud-soft.svg" alt="" />
               <img className="hero__approvedCloud hero__approvedCloud--mid" src="/fcp-cloud-soft.svg" alt="" />
-<span className="hero__approvedSun" aria-hidden="true"></span>
               <img className="hero__approvedCloud hero__approvedCloud--rightTop" src="/fcp-cloud-soft.svg" alt="" />
               <img className="hero__approvedCloud hero__approvedCloud--rightLow" src="/fcp-cloud-soft.svg" alt="" />
               <span className="hero__plane" aria-hidden="true">
