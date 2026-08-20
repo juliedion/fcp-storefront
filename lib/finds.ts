@@ -46,8 +46,31 @@ export const finds: Find[] = [
 ];
 
 export const categories = [
-  "Trending Finds", "Road Trip Rescues", "Kid Approved", "Dog Stuff",
-  "Backyard Fun", "Home Hacks", "Under $25", "Gifts"
+  "Best Sellers",
+  "Back to School",
+  "End of Summer Blowout",
+  "Fall Finds",
+  "Halloween",
+  "Home, Kitchen, Decor & More",
+  "Gift-worthy Finds",
+  "Boredom Busters",
+  "Hot Mama Finds",
+  "Home Office & Workday Wins",
+  "Sports Parent & Sideline Finds",
+  "Baby, Kids & Littles",
+  "Teens & Tweens",
+  "Travel Finds",
+  "Craft & Hobby",
+  "Personal Care",
+  "Garden & Outdoor",
+  "Organization Finds",
+  "Hot Romance & Couples",
+  "Man Caves, Garages & Grills",
+  "Fitness & Sports",
+  "Hot Toys",
+  "Apparel & Accessories",
+  "Electronics, Cameras & More",
+  "Dads & Dudes"
 ];
 
 export function getFind(slug: string) {
