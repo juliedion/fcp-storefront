@@ -6,32 +6,20 @@ import { getShopifyFinds, productsForCategory } from "@/lib/shopify";
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
+function collectionSlug(name: string) {
+  return name.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+}
+
 export default async function Home() {
   const finds = await getShopifyFinds(100);
-  const homeHacks = productsForCategory(finds, "Home Hacks");
-  const under25 = productsForCategory(finds, "Under $25");
-  const secondaryFinds = homeHacks.length ? homeHacks.slice(0, 2) : finds.slice(4, 6);
+  const collectionRows = categories
+    .map((name) => ({ name, products: productsForCategory(finds, name) }))
+    .filter((row) => row.products.length > 0);
+
   return (
     <>
       <Header />
       <main>
-        <style>{`
-          /* A legacy decorative .sun rule was colliding with product cards whose tone is "sun".
-             Keep product visuals in normal card flow on every viewport. */
-          .findVisual.sun {
-            position: relative !important;
-            width: 100% !important;
-            height: auto !important;
-            right: auto !important;
-            left: auto !important;
-            top: auto !important;
-            bottom: auto !important;
-            border-radius: 0 !important;
-            box-shadow: none !important;
-            aspect-ratio: 1 / 1 !important;
-            background: #fff !important;
-          }
-        `}</style>
         <section className="hero hero--fort">
           <div className="hero__scene" aria-hidden="true">
             <div className="hero__skyMotion">
@@ -62,48 +50,45 @@ export default async function Home() {
               <h1 className="hero__title">Crazy Cool <span className="text-pink">Finds</span> You’ll Actually <span className="text-teal">Use</span></h1>
               <p className="hero__subtitle">Clever gadgets, home hacks, family favorites, and gifts that make everyday life easier — and a lot more fun.</p>
               <div className="hero__actions">
-                <a href="#finds" className="btn btn--primary">See Today’s Finds →</a>
+                <a href="#collections" className="btn btn--primary">See Today’s Finds →</a>
                 <a href="#categories" className="btn btn--outline hero__outline">New Finds</a>
               </div>
             </div>
           </div>
         </section>
 
-        <section id="categories" className="collectionZone"><div className="collectionTitle">⚡ SHOP BY COLLECTION ⚡</div><div className="categoryBar">
-          {categories.map((category) => <a href="#finds" key={category}>{category}</a>)}
-        </div></section>
-
-        <section id="finds" className="section">
-          <div className="sectionHead">
-            <div><p className="kicker">FRESH FROM THE FORT</p><h2>🔥 Crazy-Good Finds</h2></div>
-            <a href="#all">See all finds →</a>
-          </div>
-          <div className="findGrid">
-            {finds.slice(0,4).map((item) => <FindCard key={item.slug} item={item} />)}
+        <section id="categories" className="collectionZone">
+          <div className="collectionTitle">⚡ SHOP BY COLLECTION ⚡</div>
+          <div className="categoryBar">
+            {categories.map((category) => <a href={`#${collectionSlug(category)}`} key={category}>{category}</a>)}
           </div>
         </section>
+
+        <div id="collections" className="collectionRows">
+          {collectionRows.map(({ name, products }) => (
+            <section id={collectionSlug(name)} className="section collectionRow" key={name}>
+              <div className="sectionHead collectionRow__head">
+                <div>
+                  <p className="kicker">FORT CRAZYPANTS COLLECTION</p>
+                  <h2>{name}</h2>
+                </div>
+                <a className="viewAllLink" href={`/collection/${collectionSlug(name)}`}>View all →</a>
+              </div>
+              <div className="findGrid collectionRow__grid">
+                {products.slice(0, 4).map((item) => <FindCard key={`${name}-${item.slug}`} item={item} />)}
+              </div>
+            </section>
+          ))}
+        </div>
 
         <section className="featureBand">
           <div>
             <p className="kicker light">ROAD TRIP RESCUES</p>
             <h2>Because “are we there yet?” gets old.</h2>
             <p>Backseat sanity, snack containment and things that buy you another 47 minutes.</p>
-            <a className="creamBtn" href="#road">Pack the car →</a>
+            <a className="creamBtn" href="#road-trip-rescues">Pack the car →</a>
           </div>
           <div className="roadGraphic">🚙<span>ARE<br/>WE<br/>THERE<br/>YET?</span></div>
-        </section>
-
-        <section className="section twoCol">
-          <div>
-            <div className="sectionHead compact"><div><p className="kicker">HOUSEHOLD CHAOS</p><h2>Why didn't I think of that?</h2></div></div>
-            <div className="miniGrid">{secondaryFinds.map((item) => <FindCard key={item.slug} item={item} />)}</div>
-          </div>
-          <aside className="under25">
-            <p className="kicker light">DANGEROUSLY EASY TO JUSTIFY</p>
-            <div className="priceMark">UNDER<br/><strong>$25</strong></div>
-            <p>The little finds that somehow end up in the cart because, technically, they solve a problem.</p>
-            <a className="creamBtn" href="#finds">{under25.length ? `${under25.length} finds under $25 →` : "Show me →"}</a>
-          </aside>
         </section>
 
         <section id="crazy-list" className="section crazyList">
