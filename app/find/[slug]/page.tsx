@@ -4,6 +4,7 @@ import BuyNowButton from "@/components/BuyNowButton";
 import ProductGallery from "@/components/ProductGallery";
 import { getShopifyFindByHandle } from "@/lib/shopify";
 import { getProductGallery } from "@/lib/productGallery";
+import { getProductPageContent } from "@/lib/productContent";
 import "../../product-v2.css";
 
 export const dynamic = "force-dynamic";
@@ -12,7 +13,7 @@ function sentences(value: string) {
   return (value || "").replace(/•/g, " ").split(/(?<=[.!?])\s+|\n+/).map(v => v.trim()).filter(v => v.length > 15);
 }
 
-function purchaseBullets(value: string) {
+function fallbackBullets(value: string) {
   return sentences(value)
     .filter(v => !/^(product details|why you|package contents|contents|color|size|material|dimensions?)\s*:/i.test(v))
     .slice(0, 6)
@@ -24,11 +25,12 @@ export default async function FindPage({ params }: { params: Promise<{ slug: str
   const item = await getShopifyFindByHandle(slug);
   if (!item) notFound();
   const affiliate = item.purchaseMode === "affiliate" || item.isAffiliate;
-  const gallery = await getProductGallery(slug);
+  const [gallery, savedCopy] = await Promise.all([getProductGallery(slug), getProductPageContent(slug)]);
   const images = gallery.length ? gallery : item.imageUrl ? [{ url: item.imageUrl, altText: item.imageAlt || item.title }] : [];
-  const details = item.fullDescription || item.quickTake || "";
-  const bullets = purchaseBullets(details);
-  const why = sentences(item.whyYoullLoveIt || item.quickTake || details).slice(0, 3).join(" ");
+  const details = savedCopy?.descriptionHtml || item.fullDescription || item.quickTake || "";
+  const bullets = savedCopy?.purchaseBullets?.length ? savedCopy.purchaseBullets : fallbackBullets(details);
+  const whySource = savedCopy?.whyYoullLoveIt || item.whyYoullLoveIt || item.quickTake || details;
+  const why = sentences(whySource).slice(0, 3).join(" ");
 
   return (
     <>
@@ -47,7 +49,7 @@ export default async function FindPage({ params }: { params: Promise<{ slug: str
               <div className="productDetailsV2__copy">
                 {details.split(/\n+/).filter(Boolean).map((line, index) => <p key={index}>{line}</p>)}
               </div>
-              {bullets.length > 0 && <ul className="purchaseBullets">{bullets.map((bullet, index) => <li key={index}>{bullet}</li>)}</ul>}
+              {bullets.length > 0 && <ul className="purchaseBullets">{bullets.map((bullet, index) => <li key={index}>{/[.!?]$/.test(bullet) ? bullet : `${bullet}.`}</li>)}</ul>}
             </section>
 
             <section className="whyLoveV2">
