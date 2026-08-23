@@ -4,6 +4,7 @@ import BuyNowButton from "@/components/BuyNowButton";
 import ProductGallery from "@/components/ProductGallery";
 import { getShopifyFindByHandle } from "@/lib/shopify";
 import { getProductGallery } from "@/lib/productGallery";
+import "../../product-v2.css";
 
 export const dynamic = "force-dynamic";
 
