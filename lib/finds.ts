@@ -24,6 +24,9 @@ export type Find = {
   productSource?: string;
   tags?: string[];
   collections?: { title: string; handle: string }[];
+  galleryImages?: { url: string; altText?: string | null }[];
+  purchaseBullets?: string[];
+  savedWhyYoullLoveIt?: string;
 };
 
 // Demo data is retained only as an emergency local-development fallback.

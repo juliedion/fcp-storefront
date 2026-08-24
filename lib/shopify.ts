@@ -16,6 +16,7 @@ const PRODUCT_FIELDS = `
   tags
   availableForSale
   featuredImage { url altText }
+  images(first: 10) { nodes { url altText } }
   priceRange { minVariantPrice { amount currencyCode } }
   variants(first: 10) {
     nodes { id title availableForSale quantityAvailable price { amount currencyCode } }
@@ -25,6 +26,8 @@ const PRODUCT_FIELDS = `
   affiliateNetwork: metafield(namespace: "custom", key: "affiliate_network") { value }
   ctaText: metafield(namespace: "custom", key: "cta_text") { value }
   verdict: metafield(namespace: "custom", key: "fcp_verdict") { value }
+  whyYoullLoveIt: metafield(namespace: "custom", key: "why_youll_love_it") { value }
+  purchaseBullets: metafield(namespace: "custom", key: "purchase_bullets") { type value }
   badge: metafield(namespace: "custom", key: "badge") { value }
   isAffiliate: metafield(namespace: "custom", key: "is_affiliate_product") { value }
   merchant: metafield(namespace: "custom", key: "merchant") { value }
@@ -58,6 +61,7 @@ type ShopifyProduct = {
   tags?: string[];
   availableForSale?: boolean;
   featuredImage?: { url: string; altText?: string | null } | null;
+  images?: { nodes?: { url: string; altText?: string | null }[] };
   priceRange?: { minVariantPrice?: Money };
   variants?: { nodes?: { id: string; title: string; availableForSale: boolean; quantityAvailable?: number | null; price: Money }[] };
   collections?: { nodes?: { title: string; handle: string }[] };
@@ -65,6 +69,8 @@ type ShopifyProduct = {
   affiliateNetwork?: { value: string } | null;
   ctaText?: { value: string } | null;
   verdict?: { value: string } | null;
+  whyYoullLoveIt?: { value: string } | null;
+  purchaseBullets?: { type?: string; value: string } | null;
   badge?: { value: string } | null;
   isAffiliate?: { value: string } | null;
   merchant?: { value: string } | null;
@@ -347,6 +353,27 @@ function truthy(value?: string | null) {
   return ["true", "1", "yes", "affiliate"].includes((value || "").trim().toLowerCase());
 }
 
+function parsePurchaseBullets(field?: { type?: string; value: string } | null) {
+  const raw = (field?.value || "").trim();
+  if (!raw) return [];
+
+  let values: string[] = [];
+  if (field?.type?.startsWith("list.") || raw.startsWith("[")) {
+    try {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) values = parsed.map(String);
+    } catch {
+      values = [];
+    }
+  }
+
+  if (!values.length) values = raw.split(/\n+|\s*[•|]\s*/);
+  return values
+    .map((value) => value.replace(/^\s*(?:[-–—•]|\d+[.)])\s*/, "").replace(/\s+/g, " ").trim())
+    .filter(Boolean)
+    .slice(0, 6);
+}
+
 function normalizedSource(p: ShopifyProduct) {
   return (p.productSource?.value || "").trim().toLowerCase();
 }
@@ -453,6 +480,11 @@ function toFind(p: ShopifyProduct, i = 0): Find {
     productSource: source,
     tags: p.tags || [],
     collections: p.collections?.nodes || [],
+    galleryImages: Array.from(
+      new Map((p.images?.nodes || []).filter((image) => image.url).map((image) => [image.url, image])).values()
+    ).slice(0, 10),
+    purchaseBullets: parsePurchaseBullets(p.purchaseBullets),
+    savedWhyYoullLoveIt: (p.whyYoullLoveIt?.value || p.verdict?.value || "").trim(),
   };
 }
 
